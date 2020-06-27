@@ -12,7 +12,7 @@ express()
 
 showTimes = () => {
     let result = '';
-    const times = process.env.TIMES || 20;
+    const times = process.env.TIMES || 15;
     for (i = 0; i < times; i++) {
         result += i + ' ';
     }
