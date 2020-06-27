@@ -1,0 +1,44 @@
+<html>
+  <body>
+    Client Id: <span id="cid"></span>
+    <br /><br />
+    <div id="content"></div>
+    <button onclick="stop()">Stop</button> "Stop" to finish.
+
+    <script type="text/javascript">
+      const client_id = Math.floor((Math.random() * 100) + 1);
+      const source = new EventSource(`/events?id=${client_id}`);
+
+      source.addEventListener('message', message => {
+        console.log(`${client_id} | Got`, message);
+
+        // Display the event data in the `content` div
+        document.querySelector('#cid').innerHTML = client_id;
+        document.querySelector('#content').innerHTML = event.data;
+      });
+
+      // On unload, also unsubscribe.
+      window.onbeforeunload = stop;
+
+      function stop()
+      {
+        source.close();
+        console.log("eventSource.close()");
+
+        // Tell the server I wish to unsubscribe
+        fetchAsync(`/unsub?id=${client_id}`)
+            .then(data => console.log(`Fetch: ${data}`))
+            .catch(reason => console.log(reason.message))
+      }
+
+      fetchAsync = async(url) => {
+          let response = await fetch(url);
+          console.log(`response: ${response}`);
+          let data = await response.text();
+          console.log(`data: ${data}`);
+          return data;
+      }
+
+    </script>
+  </body>
+</html>
