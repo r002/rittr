@@ -1,5 +1,7 @@
 # node-js-getting-started
 
+[Operation Rittr Kanban](https://github.com/r002/rittr/projects/2)
+
 June 27, 2020 - Saturday: Test 'Continuous Delivery' with GitHub Deploys integration.
 
 A barebones Node.js app using [Express 4](http://expressjs.com/).
