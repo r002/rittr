@@ -1,43 +1,59 @@
 <html>
   <body>
+    SSE Toy Example
+    <br /><br />
     Client Id: <span id="cid"></span>
     <br /><br />
     <div id="content"></div>
     <button onclick="stop()">Stop</button> "Stop" to finish.
 
     <script type="text/javascript">
-      const client_id = Math.floor((Math.random() * 100) + 1);
-      const source = new EventSource(`/events?id=${client_id}`);
+        const root = "";
+        // const root = "https://rittr.herokuapp.com";
+        const client_id = Math.floor((Math.random() * 100) + 1);
 
-      source.addEventListener('message', message => {
-        console.log(`${client_id} | Got`, message);
-
-        // Display the event data in the `content` div
         document.querySelector('#cid').innerHTML = client_id;
-        document.querySelector('#content').innerHTML = event.data;
-      });
 
-      // On unload, also unsubscribe.
-      window.onbeforeunload = stop;
+        // const source = new EventSource(`/events?id=${client_id}`);
+        const source = new EventSource(`${root}/events?id=${client_id}`);
 
-      function stop()
-      {
-        source.close();
-        console.log("eventSource.close()");
+        source.addEventListener('message', message => {
+            console.log(`${client_id} | Got`, message);
 
-        // Tell the server I wish to unsubscribe
-        fetchAsync(`/unsub?id=${client_id}`)
-            .then(data => console.log(`Fetch: ${data}`))
-            .catch(reason => console.log(reason.message))
-      }
+            // Display the event data in the `content` div
+            document.querySelector('#content').innerHTML = event.data;
+        });
 
-      fetchAsync = async(url) => {
-          let response = await fetch(url);
-          console.log(`response: ${response}`);
-          let data = await response.text();
-          console.log(`data: ${data}`);
-          return data;
-      }
+        // // On unload, also unsubscribe.
+        // // This doesn't work!
+        // window.onbeforeunload = function() {
+        //     var xmlHttp = new XMLHttpRequest();
+        //     xmlHttp.open( "GET", `${root}/unsub?id=${client_id}`, false ); // false for synchronous request
+        //     xmlHttp.send( null );
+        //     rs = xmlHttp.responseText;
+        //     console.log(`About to leave! ${rs}`);
+        //     return 'Are you sure want to LOGOUT the session ?';
+        // };
+
+        // Async stop
+        function stop()
+        {
+            source.close();
+            console.log("eventSource.close()");
+
+            // Tell the server I wish to unsubscribe
+            fetchAsync(`${root}/unsub?id=${client_id}`)
+                .then(data => console.log(`Fetch: ${data}`))
+                .catch(reason => console.log(reason.message))
+        }
+
+        fetchAsync = async(url) => {
+            let response = await fetch(url);
+            console.log(`response: ${response}`);
+            let data = await response.text();
+            console.log(`data: ${data}`);
+            return data;
+        }
 
     </script>
   </body>

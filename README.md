@@ -4,6 +4,16 @@
 
 June 27, 2020 - Saturday: Test 'Continuous Delivery' with GitHub Deploys integration.
 
+```sh
+$ heroku ps:scale web=0
+$ heroku ps:scale web=1
+```
+
+```sql
+create table users (id serial PRIMARY KEY, name text, email text);
+insert into users (name, email) values ('Robert', 'robert@example.com');
+```
+
 A barebones Node.js app using [Express 4](http://expressjs.com/).
 
 This application supports the [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
