@@ -12,6 +12,7 @@ const pool = new Pool({
 
 var home = require('./controllers/home');
 var publisher = require('./controllers/publisher');
+var users = require('./controllers/users');
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
@@ -20,22 +21,8 @@ express()
   //     next(); })
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
-  // .get('/', (req, res) => res.render('pages/index'))
   .get('/', (req, res) => res.send(home.showHome()))
-  .get('/db', async (req, res) => {
-      try {
-          console.log(`*****Connecting to psql!`)
-          // console.log(`*****Connecting: ${process.env.DATABASE_URL}`)
-          const client = await pool.connect();
-          const result = await client.query('SELECT * FROM users');
-          const results = { 'results': (result) ? result.rows : null};
-          res.render('pages/db', results );
-          client.release();
-      } catch (err) {
-          console.error(err);
-          res.send("***Error " + err);
-      }
-    })
+  .get('/admin/users', (req, res) => users.view(pool, req, res))
   .get('/times', (req, res) => res.send(home.showTimes(req)))
   .get('/events', (req, res) => publisher.launchSSE(req, res))
   .get('/sub', (req, res) => res.render('pages/sub'))
