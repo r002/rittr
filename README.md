@@ -12,6 +12,9 @@ $ git commit -m "r002/rittr#6: Add 'users' table, install pg node module, attach
 
 $ heroku logs --tail
 $ heroku pg:psql
+
+$ git log origin/master..HEAD
+$ git diff origin/master..HEAD
 ```
 
 ```sql
