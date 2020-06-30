@@ -15,8 +15,25 @@ $ heroku pg:psql
 ```
 
 ```sql
-create table users (id serial PRIMARY KEY, name text, email text);
-insert into users (name, email) values ('Robert', 'robert@example.com');
+create table users (
+    id serial PRIMARY KEY,
+    name VARCHAR (50) NOT NULL,
+    email VARCHAR (355) UNIQUE NOT NULL,
+    created_on timestamp default current_timestamp,
+	last_login timestamp NOT NULL
+);
+
+insert into users (name, email, last_login) values (
+    'Alice',
+    'alice@example.com',
+    now()
+);
+
+insert into users (name, email, last_login) values (
+    'Bob',
+    'bob@example.com',
+    now()
+);
 ```
 
 A barebones Node.js app using [Express 4](http://expressjs.com/).
