@@ -10,6 +10,7 @@ const pool = new Pool({
     // https://stackoverflow.com/questions/54302088/how-to-fix-error-the-server-does-not-support-ssl-connections-when-trying-to-a
 });
 
+var home = require('./controllers/home');
 var publisher = require('./controllers/publisher');
 
 express()
@@ -20,7 +21,7 @@ express()
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   // .get('/', (req, res) => res.render('pages/index'))
-  .get('/', (req, res) => res.send(showHome()))
+  .get('/', (req, res) => res.send(home.showHome()))
   .get('/db', async (req, res) => {
       try {
           console.log(`*****Connecting to psql!`)
@@ -35,22 +36,8 @@ express()
           res.send("***Error " + err);
       }
     })
-  .get('/times', (req, res) => res.send(showTimes(req)))
+  .get('/times', (req, res) => res.send(home.showTimes(req)))
   .get('/events', (req, res) => publisher.launchSSE(req, res))
   .get('/sub', (req, res) => res.render('pages/sub'))
   .get('/unsub', (req, res) => publisher.unsub(req, res))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
-
-showHome = () => {
-      return "Landing homepage for rittr!"
-}
-
-showTimes = (req) => {
-    let result = '';
-    const times = process.env.TIMES || 15;
-    for (i = 0; i < times; i++) {
-        result += i + ' ';
-    }
-    console.log(`Return: ${result} | ${req.query.id}`)
-    return result;
-}
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
