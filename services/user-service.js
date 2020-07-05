@@ -4,9 +4,14 @@ const db = require('../services/db')
 module.exports = {
 
     create_user : async (user) => {
-        // console.log(`>> create_user(...) called!`, user)
+        // console.log(`>>>>> create_user(...) called!`, user)
 
-        // TODO: Validate the fields. Reject call if any invalid fields found.
+        if (!validate(user)) {
+            let rs = { "status": 0 }
+            rs.errCode = "ERR-003"
+            rs.errMsg  = "ERR-003: Invalid 'user.name' or 'user.email' field."
+            return rs
+        }
 
         let query = 'INSERT INTO users (name, email, sovereignty) VALUES ($1, $2, $3) ' +
                     'RETURNING *'
@@ -17,8 +22,8 @@ module.exports = {
             // console.log("%%% error has occurred!", rs)
             if ("users_email_key"==rs.errObj.constraint)
             {
-                rs.errCode = "ERR-001"
-                rs.errMsg  = "ERR-001: Non-unique email address."
+                rs.errCode = "ERR-002"
+                rs.errMsg  = "ERR-002: Non-unique email address."
             }
         }
         return rs
@@ -37,4 +42,13 @@ module.exports = {
         let rs = await db.query('DELETE FROM users WHERE id = $1', [id])
         return rs
     },
+}
+
+// https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+validate = (user) => {
+    if (""===user.name.trim()){
+        return false
+    }
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(user.email).toLowerCase())
 }
