@@ -21,21 +21,22 @@ $ git diff origin/master..HEAD
 create table users (
     id serial PRIMARY KEY,
     name VARCHAR (50) NOT NULL,
+	sovereignty VARCHAR (50) NOT NULL,
     email VARCHAR (355) UNIQUE NOT NULL,
     created_on timestamp default current_timestamp,
-	last_login timestamp NOT NULL
+	last_login timestamp
 );
 
-insert into users (name, email, last_login) values (
+insert into users (name, email, sovereignty) values (
     'Alice',
     'alice@example.com',
-    now()
+    'Alicetown'
 );
 
-insert into users (name, email, last_login) values (
+insert into users (name, email, sovereignty) values (
     'Bob',
     'bob@example.com',
-    now()
+    'Bobville'
 );
 ```
 
