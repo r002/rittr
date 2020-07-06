@@ -30,7 +30,7 @@ t.test('User.001: Successfully create user.', async (t) => {
 
 t.test('User.002: Fail to create user-- Duplicate email address.', async (t) => {
     // Mock what an unacceptable user object input looks like
-    let mockUser = new User("Mr. Duplicate", "duplicate@email.com", "Duplicate Land")
+    let mockUser = new User("Mr. Duplicate", "duplicate@example.com", "Duplicate Land")
     let rs = await userService.create_user(mockUser)
     // console.log("Test 1.2 Return: ", user)
     t.equal(rs.status, 0, `rs.status==0 - create_user(..) failed: ` +
@@ -68,6 +68,17 @@ t.test('User.003: Fail to create user-- Invalid field.', async (t) => {
     t.end()
 });
 
+t.test('User.004: Successfully get a user by id', async (t) => {
+    let user = await userService.get_user_by_id(1)
+    t.equal(user.name, "Robert", `'${user.name}' matches expected for '${user.id}'.`)
+    t.end()
+});
+
+t.test('User.005: Successfully get a user by email', async (t) => {
+    let user = await userService.get_user_by_email('robert@ilope.org')
+    t.equal(user.name, "Robert", `'${user.name}' matches expected for '${user.email}'.`)
+    t.end()
+});
 
 // // Successful Deletion of User.
 // // Weird... doesn't fail when the user id doesn't exist. Investigate later.

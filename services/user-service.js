@@ -29,12 +29,17 @@ module.exports = {
         return rs
     },
 
-    get_user : async (id) => {
-        // console.log(`>>>>> get_user(...) called!`, id)
-        let rows = await db.query('SELECT * FROM users WHERE id = $1', [id])
-        return rows[0]
+    get_user_by_id : async (id) => {
+        let rs = await db.query('SELECT * FROM users WHERE id = $1', [id])
+        // console.log(" **** get_user_by_id", rs)
+        return rs.payload[0]
     },
 
+    get_user_by_email : async (email) => {
+        let rs = await db.query('SELECT * FROM users WHERE email = $1', [email])
+        // console.log(" **** get_user_by_email", rs)
+        return rs.payload[0]
+    },
 
     // Weird... doesn't fail when the user id doesn't exist. Investigate later. 7/4/20
     delete_user : async (id) => {
