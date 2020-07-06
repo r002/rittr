@@ -15,30 +15,21 @@ $ heroku pg:psql
 
 $ git log origin/master..HEAD
 $ git diff origin/master..HEAD
+
+$ ls env:  # Show all env vars in PowerShell
+$ $env:PGPASSWORD = 'myPwdSecret'
+
+# Load db from seed:
+$ cmd /c 'psql -U rittr rittr_dev < db/seed.sql'
+
+# How to dump/load to/from psql:
+$ pg_dump -U rittr rittr_dev > snapshot.sql
+$ cmd /c 'psql -U rittr rittr_dev < snapshot.sql'
+
 ```
 
-```sql
-create table users (
-    id serial PRIMARY KEY,
-    name VARCHAR (50) NOT NULL,
-	sovereignty VARCHAR (50) NOT NULL,
-    email VARCHAR (355) UNIQUE NOT NULL,
-    created_on timestamp default current_timestamp,
-	last_login timestamp
-);
+Stored procedures: https://www.postgresqltutorial.com/postgresql-create-procedure/
 
-insert into users (name, email, sovereignty) values (
-    'Alice',
-    'alice@example.com',
-    'Alicetown'
-);
-
-insert into users (name, email, sovereignty) values (
-    'Bob',
-    'bob@example.com',
-    'Bobville'
-);
-```
 
 A barebones Node.js app using [Express 4](http://expressjs.com/).
 
