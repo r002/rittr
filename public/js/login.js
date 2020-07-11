@@ -1,20 +1,25 @@
-
-login = () => {
+login = async () => {
     let login_email = document.querySelector('#login_email').value
-    console.log("#login_email:", login_email)
+    // console.log("#login_email:", login_email)
+    let req = { "email": login_email }
 
-    // TODO: Make JSON REST API POST call here to send otp email to the
-    // user if the user exists. If user doesn't exist, display:
-    // "Sorry, no user with that email found." message.
+    let res = await fetch(`/v1/otp_token`, {
+        method: 'POST',
+        body: JSON.stringify(req),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    })
+    let rs = await res.json()
+    // console.log("fetch returned: ", rs)
 
-    document.querySelector('#msg_area')
-    .innerHTML = `Email sent to: <strong>${login_email}</strong>.
-                  Please check your inbox.`;
+    if(1==rs.status) {
+        document.querySelector('#msg_area')
+        .innerHTML = `Email sent to: <strong>${login_email}</strong>.<br />`
+                      + `Please check your inbox.`
+    } else {
+        document.querySelector('#msg_area')
+        .innerHTML = `Sorry, no user with this email found:<br />`
+                      + `<strong>${login_email}</strong>`
+    }
 }
-
-// fetchAsync = async (url) => {
-//     let response = await fetch(url);
-//     let data = await response.text();
-//     // let data = await response.json();
-//     return data;
-// }

@@ -32,14 +32,19 @@ express()
   // .get('/unsub', (req, res) => publisher.unsub(req, res))
 
   // JSON REST API
-  .post('/v1/otp_token', (req, res) => authService.email_otp_api(req, res))
+  .post('/v1/otp_token', (req, res) => route_api(req, res, authService.email_otp_api))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
 // TODO: Check authentication cookie to validate if user is authorized
 //       to access the requested resource.
 route = (pool, req, res, fxn) => {
-    console.log("Router called!", fxn)
+    console.log("Router called: ", fxn)
     console.log("Check authentication cookie...", req.query.id, req.query.otp)
     fxn(pool, req, res)
+}
+
+route_api = (req, res, fxn) => {
+    console.log("API called: ", fxn)
+    fxn(req, res)
 }
