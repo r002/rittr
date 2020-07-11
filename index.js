@@ -30,6 +30,9 @@ express()
   // .get('/events', (req, res) => publisher.launchSSE(req, res))
   // .get('/sub', (req, res) => res.render('pages/sub'))
   // .get('/unsub', (req, res) => publisher.unsub(req, res))
+
+  // JSON REST API
+  .post('/v1/otp_token', (req, res) => authService.email_otp_api(req, res))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 

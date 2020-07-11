@@ -23,28 +23,29 @@ var mailOptions = {
 send_email = (user, subject, body) => {
     mailOptions.to = `"${user.name}" <${user.email}>`
     mailOptions.subject = `${subject}`
-    mailOptions.html = `${body}
-                        <br /><br />---<br />
-                        <em>This email was auto-generated on: ${Date()}</em>`
+    mailOptions.html = `${body}\n`
+                        + `<br /><br />---<br />\n`
+                        + `<em>This email was auto-generated on: ${Date()}</em>\n`
     // console.log("??? mailOptions", mailOptions)
     // console.log("??? transporter", transporter)
 
     // send mail with defined transport object
-    transporter.sendMail(mailOptions, (error, info) => {
-        if(error){
-            return console.log("Error happened!!!!", error);
-        }
-        console.log("nodemailer info obj:", info)
-        console.log('Message sent: ' + info.response, mailOptions.subject, mailOptions.html);
-    });
+    return new Promise((resolve, reject) => {
+        transporter.sendMail(mailOptions, (error, info) => {
+            let rs = { status: 0 }
+            if(error){
+                // console.log("Error happened!", error)
+                rs.errMsg = error
+            } else {
+                // console.log("nodemailer info obj:", info)
+                // console.log('Message sent: ' + info.response, mailOptions.subject, mailOptions.html)
+                rs.status = 1
+            }
+            resolve(rs)
+        })
+    })
 }
 
 module.exports = {
-    send_email,
-    email_temp : (req, res) => {
-        let subject = req.query.subject
-        let body = req.query.body
-        send_email(subject, body)
-        res.send(`Email sent! ${subject} | ${body}`)
-    },
+    send_email
 }
