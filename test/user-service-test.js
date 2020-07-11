@@ -70,13 +70,15 @@ t.test('User.003: Fail to create user-- Invalid field.', async (t) => {
 
 t.test('User.004: Successfully get a user by id', async (t) => {
     let user = await userService.get_user_by_id(1)
-    t.equal(user.name, "Robert", `'${user.name}' matches expected for '${user.id}'.`)
+    t.equal(user.status, 1, `User status: ${user.status}`)
+    t.equal(user.name, "Robert", `'${user.name}' matches expected for user id: '${user.id}'.`)
     t.end()
 });
 
 t.test('User.005: Successfully get a user by email', async (t) => {
     let user = await userService.get_user_by_email('robert@ilope.org')
-    t.equal(user.name, "Robert", `'${user.name}' matches expected for '${user.email}'.`)
+    t.equal(user.status, 1, `User status: ${user.status}`)
+    t.equal(user.name, "Robert", `'${user.name}' matches expected for user email: '${user.email}'.`)
     t.end()
 });
 

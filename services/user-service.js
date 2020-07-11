@@ -33,7 +33,9 @@ module.exports = {
         let rs = await db.query('SELECT * FROM users WHERE id = $1', [id])
         // console.log(" **** get_user_by_id", rs)
         if (1==rs.payload.length) {
-            return rs.payload[0]
+            let user = rs.payload[0]
+            user.status = 1
+            return user
         }
         rs.status = 0
         return rs
@@ -43,7 +45,9 @@ module.exports = {
         let rs = await db.query('SELECT * FROM users WHERE email = $1', [email])
         // console.log(" **** get_user_by_email", rs)
         if (1==rs.payload.length) {
-            return rs.payload[0]
+            let user = rs.payload[0]
+            user.status = 1
+            return user
         }
         rs.status = 0
         return rs
