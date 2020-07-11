@@ -80,6 +80,20 @@ t.test('User.005: Successfully get a user by email', async (t) => {
     t.end()
 });
 
+t.test('User.006: Fail to get a user by id', async (t) => {
+    let bogus_id = 0
+    let user = await userService.get_user_by_id(bogus_id)
+    t.equal(user.status, 0, `No user exists with id: ${bogus_id}.`)
+    t.end()
+});
+
+t.test('User.007: Fail to get a user by email', async (t) => {
+    let bogus_email = 'doesnt_exist@example.com'
+    let user = await userService.get_user_by_email(bogus_email)
+    t.equal(user.status, 0, `No user exists with email: '${bogus_email}'.`)
+    t.end()
+});
+
 // // Successful Deletion of User.
 // // Weird... doesn't fail when the user id doesn't exist. Investigate later.
 // t.test('1.4: Successfully delete a user', async (t) => {
