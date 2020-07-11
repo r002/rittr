@@ -1,30 +1,30 @@
 // test/user-service-test.js
 // ========
 
-const t = require('tap')
 const dotenv = require('dotenv')
 dotenv.config()
+const t = require('tap')
 const userService = require('../services/user-service')
 const db = require('../services/db')
+const util = require('../lib/util')
 const User = require('../models/user')
 
+
+console.log("############# Beginning Tests! ###################")
+t.test('000: Initialization', async (t) => {
+    let rs = await util.reset_db()
+    t.equal(rs.status, 1, `Db sucessfully reset: ${JSON.stringify(rs)}`)
+    t.end()
+})
 
 t.test('User.001: Successfully create user.', async (t) => {
     // Mock what an acceptable user object input looks like
     let mockUser = new User("The Grinch", "grinch@whoville.com", "Whoville")
     let rs = await userService.create_user(mockUser)
-    // console.log("Test 1.1 Return: ", rs)
-    const user = rs.payload[0]
-    t.equal(rs.status, 1, `New user created: ${JSON.stringify(user)}`)
-    t.equal(user.name, mockUser.name, `New user's name: ${mockUser.name}`)
+    t.equal(rs.status, 1, `Returned: ${JSON.stringify(rs)}`)
 
-    // Clean-up. Delete this mock user user we just created.
-    // Investigate how to get 'result code' back from psql deletion?
-    if (1==rs.status) {
-        cleanup = await userService.delete_user(user.id)
-        t.pass(`User deleted from db - User id: ${user.id}`)
-        // console.log("1.1 Cleanup succeeded. Deleted: ", rs)
-    }
+    const user = rs.payload[0]
+    t.equal(user.name, mockUser.name, `New user created: ${JSON.stringify(user)}`)
     t.end()
 });
 
@@ -92,7 +92,13 @@ t.test('User.005: Successfully get a user by email', async (t) => {
 //     t.end()
 // });
 
-t.test('Close the db connection pool.', async (t) => {
-    t.pass("All tests finished. Closing db connection pool.")
+// t.afterEach((done, t) => {
+//   console.log("$$ Test finished!")
+//   done()
+// })
+
+t.teardown( _ => {
+    console.log("~~ User-Service-Test Suite finished. Reset db & close connection pool.")
+    util.reset_db()
     db.end()
-});
+})
