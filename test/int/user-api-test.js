@@ -57,7 +57,7 @@ t.test('User.API.002: Failed REST API call - Duplicate User Email.', async (t) =
         })
     let rs = await res.json()
     t.equal(rs.status, 0, `REST '/v1/user' api call return: ${JSON.stringify(rs)}`)
-    t.equal(rs.errMsg, c.ERR_002_NON_UNIQUE_EMAIL,
+    t.equal(rs.errMsg, c.ERR_U02_NON_UNIQUE_EMAIL,
             `Error message returned: '${rs.errMsg}'`)
     t.end()
 })
@@ -80,7 +80,7 @@ t.test('User.API.003: Failed REST API call - Invalid User Field.', async (t) => 
         })
     let rs = await res.json()
     t.equal(rs.status, 0, `REST '/v1/user' api call return: ${JSON.stringify(rs)}`)
-    t.equal(rs.errMsg, c.ERR_003_INVAL_USER_FIELD,
+    t.equal(rs.errMsg, c.ERR_U03_INVAL_USER_FIELD,
             `Error message returned: '${rs.errMsg}'`)
     t.end()
 })

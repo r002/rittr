@@ -13,8 +13,8 @@ validate = (user) => {
 create_user = async (user) => {
     let rs = { "status": 0 }
     if (!validate(user)) {
-        rs.errCode = "ERR-003"
-        rs.errMsg  = c.ERR_003_INVAL_USER_FIELD
+        rs.errCode = "ERR-U03"
+        rs.errMsg  = c.ERR_U03_INVAL_USER_FIELD
         return rs
     }
 
@@ -26,8 +26,8 @@ create_user = async (user) => {
         // Hydrate the error object with pertinent details.
         // console.log("%%% error has occurred!", rs)
         if ("users_email_key"==db_rs.errObj.constraint) {
-            rs.errCode = "ERR-002"
-            rs.errMsg  = c.ERR_002_NON_UNIQUE_EMAIL
+            rs.errCode = "ERR-U02"
+            rs.errMsg  = c.ERR_U02_NON_UNIQUE_EMAIL
         }
     } else {
         rs.status = db_rs.status
