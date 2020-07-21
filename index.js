@@ -14,6 +14,7 @@ var home = require('./controllers/home')
 var publisher = require('./controllers/publisher')
 var users = require('./controllers/users')
 var authService = require('./services/auth-service')
+var userService = require('./services/user-service')
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
@@ -33,6 +34,7 @@ express()
 
   // JSON REST API
   .post('/v1/otp_token', (req, res) => route_api(req, res, authService.email_otp_api))
+  .post('/v1/user', (req, res) => route_api(req, res, userService.create_user_api))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 

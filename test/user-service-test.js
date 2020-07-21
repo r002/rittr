@@ -8,6 +8,7 @@ const userService = require('../services/user-service')
 const db = require('../services/db')
 const util = require('../lib/util')
 const User = require('../models/user')
+const c = require('../models/constants')
 
 
 console.log("############# Beginning Tests! ###################")
@@ -35,7 +36,7 @@ t.test('User.002: Fail to create user-- Duplicate email address.', async (t) => 
     // console.log("Test 1.2 Return: ", user)
     t.equal(rs.status, 0, `rs.status==0 - create_user(..) failed: ` +
             `${JSON.stringify(mockUser)}`)
-    t.equal(rs.errMsg, 'ERR-002: Non-unique email address.',
+    t.equal(rs.errMsg, c.ERR_002_NON_UNIQUE_EMAIL,
             `Error message returned: '${rs.errMsg}'`)
     t.end()
 });
@@ -46,7 +47,7 @@ t.test('User.003: Fail to create user-- Invalid field.', async (t) => {
     let rs = await userService.create_user(mockUser)
     t.equal(rs.status, 0, `create_user(..) failed - Invalid 'user.name': ` +
             `${JSON.stringify(mockUser)}`)
-    t.equal(rs.errMsg, `ERR-003: Invalid 'user.name' or 'user.email' field.`,
+    t.equal(rs.errMsg, c.ERR_003_INVAL_USER_FIELD,
             `ErrMsg returned: '${rs.errMsg}'`)
 
     // Mock what an 'empty-email' user object input looks like
@@ -54,7 +55,7 @@ t.test('User.003: Fail to create user-- Invalid field.', async (t) => {
     rs = await userService.create_user(mockUser)
     t.equal(rs.status, 0, `create_user(..) failed - Invalid 'user.email': ` +
             `${JSON.stringify(mockUser)}`)
-    t.equal(rs.errMsg, `ERR-003: Invalid 'user.name' or 'user.email' field.`,
+    t.equal(rs.errMsg, c.ERR_003_INVAL_USER_FIELD,
             `ErrMsg returned: '${rs.errMsg}'`)
 
     // Mock what an 'invalid-email' user object input looks like
@@ -62,7 +63,7 @@ t.test('User.003: Fail to create user-- Invalid field.', async (t) => {
     rs = await userService.create_user(mockUser)
     t.equal(rs.status, 0, `create_user(..) failed - Invalid 'user.email': ` +
             `${JSON.stringify(mockUser)}`)
-    t.equal(rs.errMsg, `ERR-003: Invalid 'user.name' or 'user.email' field.`,
+    t.equal(rs.errMsg, c.ERR_003_INVAL_USER_FIELD,
             `ErrMsg returned: '${rs.errMsg}'`)
 
     t.end()
