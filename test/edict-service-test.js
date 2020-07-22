@@ -8,6 +8,7 @@ dotenv.config()
 const db = require('../services/db')
 const util = require('../lib/util')
 const c = require('../models/constants')
+const Edict = require('../models/edict')
 
 const ROOT_URL = process.env.ROOT_URL
 
@@ -19,23 +20,18 @@ t.test('000: Initialization', async (t) => {
 })
 
 t.test('Edict.001: Successful REST API call to promulgate edict.', async (t) => {
-    // Get mock user id.
-    let user_id = 1
 
-    // Set mock otp.
-    let otp = "mock_otp_for_tests_good_until_2021"
+    let user_id = 1  // Set mock user id
+    let otp = "mock_otp_for_tests_good_until_2021"  // Set mock otp
+    let law = "This is a test edict."
 
-    // Create a request obj containing the edict and otp.
-    let req = {
-        "user_id": user_id,
-        "otp": otp,
-        "edict": "This is a test edict."
-    }
+    // Create a request obj containing the edict
+    let edict = new Edict(user_id, otp, law)
 
     // Call JSON REST API.
     let res = await fetch(`${ROOT_URL}/v1/edict`, {
             method: 'POST',
-            body: JSON.stringify(req),
+            body: JSON.stringify(edict),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
             }
@@ -46,23 +42,18 @@ t.test('Edict.001: Successful REST API call to promulgate edict.', async (t) => 
 })
 
 t.test('Edict.002: Failed REST API call to promulgate edict.', async (t) => {
-    // Get mock user id.  This user doesn't have a valid OTP and should fail.
-    let user_id = 2
 
-    // Set mock otp.
-    let otp = "mock_otp_for_tests_good_until_2021"
+    let user_id = 2  // Set mock user id.  This user doesn't have a valid OTP and should fail.
+    let otp = "mock_otp_for_tests_good_until_2021"  // Set mock otp
+    let law = "This is a test edict."
 
-    // Create a request obj containing the edict and otp.
-    let req = {
-        "user_id": user_id,
-        "otp": otp,
-        "edict": "This is a test edict."
-    }
+    // Create a request obj containing the edict
+    let edict = new Edict(user_id, otp, law)
 
     // Call JSON REST API.
     let res = await fetch(`${ROOT_URL}/v1/edict`, {
             method: 'POST',
-            body: JSON.stringify(req),
+            body: JSON.stringify(edict),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
             }

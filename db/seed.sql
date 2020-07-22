@@ -60,7 +60,7 @@ create table edicts (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users (id),
     otp_id INT REFERENCES one_time_passwords (id),
-    edict VARCHAR (280) NOT NULL,
+    law VARCHAR (280) NOT NULL,
     created_on TIMESTAMP DEFAULT current_timestamp
 );
 
