@@ -69,8 +69,9 @@ module.exports = {
         let db_rs = await db.query(`SELECT * FROM one_time_passwords WHERE `+
                                    `user_id=$1 AND otp=$2 AND expiry>=now()`,
                                    [user_id, otp])
-        if (0 != db_rs.payload.length) {
+        if (1 == db_rs.payload.length) {
             rs.status = 1
+            rs.otp_id = db_rs.payload[0].id
         }
         return rs
     }

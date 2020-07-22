@@ -13,10 +13,12 @@ const authService = require('../services/auth-service')
 promulgate = async (user_id, otp, edict) => {
     let rs = { "status": 0 }
     auth_rs = await authService.check_auth(user_id, otp)
+    // console.log("%%% auth_rs", auth_rs)
+
     if (1==auth_rs.status) {
         let query = 'INSERT INTO edicts (user_id, otp_id, edict) VALUES ($1, $2, $3) ' +
                     'RETURNING *'
-        let db_rs = await db.query(query, [user_id, 1, edict])
+        let db_rs = await db.query(query, [user_id, auth_rs.otp_id, edict])
         // console.log("%%% db_rs", db_rs)
         rs.status = db_rs.status
     } else {

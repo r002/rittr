@@ -23,7 +23,7 @@ t.test('Edict.001: Successful REST API call to promulgate edict.', async (t) => 
     let user_id = 1
 
     // Set mock otp.
-    let otp = "testing_otp"
+    let otp = "mock_otp_for_tests_good_until_2021"
 
     // Create a request obj containing the edict and otp.
     let req = {
@@ -50,7 +50,7 @@ t.test('Edict.002: Failed REST API call to promulgate edict.', async (t) => {
     let user_id = 2
 
     // Set mock otp.
-    let otp = "testing_otp"
+    let otp = "mock_otp_for_tests_good_until_2021"
 
     // Create a request obj containing the edict and otp.
     let req = {
