@@ -1,5 +1,8 @@
-// home.js
-// ========
+/*
+========
+./controllers/home.js
+========
+*/
 
 module.exports = {
 
@@ -9,8 +12,8 @@ module.exports = {
           res.render('pages/login', {"rs": 123});
     },
 
-    showHome : (pool, req, res) => {
-          res.render('pages/home', {"rs": 123})
+    showDash : (pool, req, res) => {
+          res.render('pages/dash', {"req": req})
     },
 
     showTimes : (pool, req, res) => {

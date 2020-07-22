@@ -32,7 +32,6 @@ create_account = async () => {
 
 }
 
-
 login = async () => {
     let login_email = document.querySelector('#login_email').value
     // console.log("#login_email:", login_email)
@@ -58,3 +57,5 @@ login = async () => {
                       + `<strong>${login_email}</strong>`
     }
 }
+
+history.pushState({}, "", "/login")  // Change the url in the address bar.

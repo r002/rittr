@@ -64,6 +64,16 @@ module.exports = {
         res.send(JSON.stringify(rs))
         // console.log("~~~~~~~sent res: ", res)
     },
+    check_auth : async (user_id, otp) => {
+        let rs = { "status": 0 }
+        let db_rs = await db.query(`SELECT * FROM one_time_passwords WHERE `+
+                                   `user_id=$1 AND otp=$2 AND expiry>=now()`,
+                                   [user_id, otp])
+        if (0 != db_rs.payload.length) {
+            rs.status = 1
+        }
+        return rs
+    }
 }
 
 // Circular dependency problem. Investigate later. 7/21/20
