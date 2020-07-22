@@ -5,7 +5,6 @@
 const crypto = require('crypto')
 const db = require('../services/db')
 const emailerService = require('../services/emailer-service')
-const userService = require('../services/user-service')
 
 const OTP_EXPIRY = process.env.OTP_EXPIRY
 const ROOT_URL = process.env.ROOT_URL
@@ -45,7 +44,7 @@ module.exports = {
     generate_otp,
     email_otp,
     email_otp_api : async (req, res) => {
-        // console.log("~~~~~~~req.body", req.body)
+        // console.log("email_otp_api - Received: ", req.body)
         let user = await userService.get_user_by_email(req.body.email)
         let rs = {
             status: -1,
@@ -66,3 +65,7 @@ module.exports = {
         // console.log("~~~~~~~sent res: ", res)
     },
 }
+
+// Circular dependency problem. Investigate later. 7/21/20
+// https://stackoverflow.com/questions/10869276/how-to-deal-with-cyclic-dependencies-in-node-js
+const userService = require('../services/user-service')

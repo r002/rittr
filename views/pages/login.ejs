@@ -12,7 +12,7 @@
 <br /><br />
 
 <h2>Create Account</h2>
-<form action="/action_page.php">
+<form id="create_form">
     <label for="title">Title:</label><br />
     <input type="text" id="title" name="title" value="Mayor"><br />
     <label for="name">Name:</label><br />
@@ -21,9 +21,12 @@
     <input type="text" id="sovereignty" name="sovereignty" value="Dave City"><br />
     <label for="email">Email:</label><br />
     <input type="text" id="email" name="email" value="dave@example.com"><br /><br />
-    <input type="submit" value="Create Account" />
 </form>
 
+<a href="javascript:create_account();">Create Account</a>
+<br /><br />
+
+<div id="msg_area_create"></div>
 <br /><br />
 <hr />
 

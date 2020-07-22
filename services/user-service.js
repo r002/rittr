@@ -1,5 +1,10 @@
+// ./services/user-service.js
+// Responsible for all UserService methods (Create, Retrieve, Update, Delete, API methods).
+// ========
+
 const db = require('../services/db')
 const c = require('../models/constants')
+const authService = require('../services/auth-service')
 
 // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
 validate = (user) => {
@@ -32,6 +37,7 @@ create_user = async (user) => {
     } else {
         rs.status = db_rs.status
         rs.payload = db_rs.payload
+        let auth_rs = await authService.email_otp(rs.payload[0])  // Comment this to disable email sending.
     }
     return rs
 }
