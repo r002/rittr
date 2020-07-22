@@ -8,10 +8,13 @@ June 27, 2020 - Saturday: Test 'Continuous Delivery' with GitHub Deploys integra
 $ heroku ps:scale web=0
 $ heroku ps:scale web=1
 
-$ git commit -m "r002/rittr#6: Add 'users' table, install pg node module, attach pg add-on to Heroku."
+$ cmd /c 'heroku pg:psql --app app_name < db/seed.sql'
+$ cmd /c 'heroku pg:psql < db/seed.sql'
 
 $ heroku logs --tail
 $ heroku pg:psql
+
+$ git commit -m "r002/rittr#6: Add 'users' table, install pg node module, attach pg add-on to Heroku."
 
 $ git log origin/master..HEAD
 $ git diff origin/master..HEAD

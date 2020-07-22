@@ -1,3 +1,4 @@
+drop table edicts;
 drop table one_time_passwords;
 drop table users;
 
@@ -46,6 +47,28 @@ create table one_time_passwords (
     otp VARCHAR (64) NOT NULL,
     created_on TIMESTAMP DEFAULT current_timestamp,
     expiry TIMESTAMP NOT NULL,
-    used_on TIMESTAMP,
     used BOOLEAN DEFAULT FALSE
 );
+
+insert into one_time_passwords (user_id, otp, expiry) values (
+    1,
+    'mock_otp_for_tests_good_until_2021',
+    now() + INTERVAL '365 days'
+);
+
+create table edicts (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users (id),
+    otp_id INT REFERENCES one_time_passwords (id),
+    edict VARCHAR (280) NOT NULL,
+    created_on TIMESTAMP DEFAULT current_timestamp
+);
+
+-- create table sessions (
+--     id SERIAL PRIMARY KEY,
+--     user_id INT REFERENCES users (id),
+--     otp_id INT REFERENCES one_time_passwords (id),
+--     entered_on TIMESTAMP,
+--     exited_on TIMESTAMP,
+--     last_heartbeat TIMESTAMP
+-- );

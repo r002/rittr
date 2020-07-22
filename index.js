@@ -15,6 +15,7 @@ var publisher = require('./controllers/publisher')
 var users = require('./controllers/users')
 var authService = require('./services/auth-service')
 var userService = require('./services/user-service')
+var edictService = require('./services/edict-service')
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
@@ -39,6 +40,7 @@ express()
   // JSON REST API:
   .post('/v1/otp_token', (req, res) => route_api(req, res, authService.email_otp_api))
   .post('/v1/user', (req, res) => route_api(req, res, userService.create_user_api))
+  .post('/v1/edict', (req, res) => route_api(req, res, edictService.promulgate_api))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
@@ -47,8 +49,6 @@ route = (pool, req, res, fxn) => {
       fxn(pool, req, res)
 }
 
-// TODO: Check authentication cookie to validate if user is authorized
-//       to access the requested resource.
 route_auth = async (pool, req, res, fxn) => {
     console.log("route_auth called: ", fxn)
     console.log("Check authentication cookie...", req.query.id, req.query.otp)
