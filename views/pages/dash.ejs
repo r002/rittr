@@ -7,8 +7,8 @@
 
 <body>
 
-user id: <%= req.query.id %><br />
-otp: <%= req.query.otp %>
+USER id: <%= query.id %><br />
+otp: <%= query.otp %>
 
 <h2>User Info</h2>
 
@@ -19,6 +19,11 @@ otp: <%= req.query.otp %>
 <h2>Edicts Your Leaders have Promulgated</h2>
 
 <h2>Edicts You have Promulgated</h2>
+<ul>
+    <% edicts.forEach( e => { %>
+        <li><%= e.id %> | <%= e.user_id %>  | <%= e.law %> | <%= e.created_on %></li>
+    <% }); %>
+</ul>
 
 ---
 
@@ -30,8 +35,15 @@ otp: <%= req.query.otp %>
 
 ---<br /><br />
 
-[Edict text area goes here.]<br />
-[Big red "Promulgate!" button goes here.]
+<label for="law">State your decree to all citizens of your land:</label><br />
+<textarea rows="4" cols="50" id="law" name="law">
+Hear, hear-- I decree my first edict!
+</textarea><br /><br />
+
+<a href="javascript:promulgate();">Promulgate!</a>
+<br /><br />
+
+<div id="msg_area"></div>
 
 </body>
 </html>

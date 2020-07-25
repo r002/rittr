@@ -4,16 +4,24 @@
 ========
 */
 
+// const Edict = require('../models/edict')
+const edictService = require('../services/edict-service')
+
 module.exports = {
 
     showLogin : (pool, req, res) => {
-          // res.render('pages/landing', {"rs": 123});
-          let msg = "Login page for 'Create Account' and 'Login' forms."
-          res.render('pages/login', {"rs": 123});
+        // res.render('pages/landing', {"rs": 123});
+        let msg = "Login page for 'Create Account' and 'Login' forms."
+        res.render('pages/login', {"rs": 123});
     },
 
-    showDash : (pool, req, res) => {
-          res.render('pages/dash', {"req": req})
+    showDash : async (pool, req, res) => {
+        // let e1 = new Edict(1, "otp123", "law 1"); e1.id = 10;
+        // let e2 = new Edict(1, "otp123", "law 2"); e2.id = 12;
+        // let e3 = new Edict(1, "otp123", "law 3"); e3.id = 13;
+        // req.edicts = [e1, e2, e3]
+        req.edicts = await edictService.get_edicts(req.query.id)
+        res.render('pages/dash', req)
     },
 
     showTimes : (pool, req, res) => {

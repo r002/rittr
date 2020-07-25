@@ -18,7 +18,7 @@ promulgate = async (edict) => {
     if (1==auth_rs.status) {
         let query = 'INSERT INTO edicts (user_id, otp_id, law) VALUES ($1, $2, $3) ' +
                     'RETURNING *'
-        let db_rs = await db.query(query, [edict.user_id, auth_rs.otp_id, edict.law])
+        let db_rs = await db.query(query, [edict.user_id, auth_rs.otp_id, edict.law.trim()])
         // console.log("%%% db_rs", db_rs)
         rs.status = db_rs.status
     } else {
@@ -35,6 +35,11 @@ module.exports = {
         rs = await promulgate(edict)
         res.set('Content-Type', 'application/json; charset=UTF-8')
         res.send(JSON.stringify(rs))
+    },
+
+    get_edicts : async (user_id) => {
+        let rs = await db.query('SELECT * FROM edicts WHERE user_id = $1', [user_id])
+        return rs.payload
     }
 
 }
