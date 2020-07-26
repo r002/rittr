@@ -81,7 +81,10 @@ route_auth_api = async (req, res, fxn) => {
     if (1==auth_rs.status) {
         fxn(req, res)
     } else {
-        rs.errMsg  = c.ERR_E02_INVAL_AUTH
+        rs = {
+            "status": 0,
+            "errMsg": c.ERR_E02_INVAL_AUTH
+        }
         res.status(401).json(rs)  // 401-Unauthenticated; 403-Unauthorized
     }
 }

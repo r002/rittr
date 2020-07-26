@@ -32,7 +32,18 @@ t.test('User.API.001: Successful REST GET all users', async (t) => {
     t.end()
 })
 
-t.test('User.API.002: Successful REST API POST that creates a valid user.', async (t) => {
+t.test('User.API.002: Failed REST GET all users - Invalid auth', async (t) => {
+    // Call JSON REST API.
+    let res = await fetch(`${ROOT_URL}/v1/users`)
+    let rs = await res.json()
+    t.equal(res.status, 401, `http header return status: ${res.status}`)
+    t.equal(rs.status, 0, `REST '/v1/users' api call status: ${rs.status}`)
+    t.equal(rs.errMsg, c.ERR_E02_INVAL_AUTH,
+            `Error message returned: '${rs.errMsg}'`)
+    t.end()
+})
+
+t.test('User.API.003: Successful REST API POST that creates a valid user.', async (t) => {
     // Create a valid mock user to submit for creation
     let req = {
         name: "Dave",
@@ -52,7 +63,7 @@ t.test('User.API.002: Successful REST API POST that creates a valid user.', asyn
     t.end()
 })
 
-t.test('User.API.003: Failed REST API POST - Duplicate User Email.', async (t) => {
+t.test('User.API.004: Failed REST API POST - Duplicate User Email.', async (t) => {
     // Create a valid mock user to submit for creation
     let req = {
         name: "Robert",
@@ -74,7 +85,7 @@ t.test('User.API.003: Failed REST API POST - Duplicate User Email.', async (t) =
     t.end()
 })
 
-t.test('User.API.004: Failed REST API POST - Invalid User Field.', async (t) => {
+t.test('User.API.005: Failed REST API POST - Invalid User Field.', async (t) => {
     // Create an invalid mock user to submit for creation
     // Missing 'name'
     let req = {
