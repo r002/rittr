@@ -37,6 +37,8 @@ $ npm install node-fetch --save-dev
 
 REST API Reference: https://medium.com/hashmapinc/rest-good-practices-for-api-design-881439796dc9
 
+https://stackoverflow.com/questions/3297048/403-forbidden-vs-401-unauthorized-http-responses
+
 Stored procedures: https://www.postgresqltutorial.com/postgresql-create-procedure/
 
 

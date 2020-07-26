@@ -7,16 +7,20 @@
 
 <body>
 
-USER id: <%= query.id %><br />
-otp: <%= query.otp %>
-
 <h2>User Info</h2>
+USER id: <%= query.id %><br />
+This session's otp: <%= query.otp %>
 
-<h2>List of Leaders You're Following</h2>
+<h2>Other Honchos in the Universe</h2>
+<ul class='users'>
+    <div id='users'></div>
+</ul>
+
+<h2>List of Honchos You're Following</h2>
 
 <h2>List of Constituents Following You</h2>
 
-<h2>Edicts Your Leaders have Promulgated</h2>
+<h2>Edicts Your Honchos have Promulgated</h2>
 
 <h2>Edicts You have Promulgated</h2>
 <ul class='edicts'>
@@ -27,7 +31,7 @@ otp: <%= query.otp %>
 
 <h2>Your Favorite Edicts</h2>
 
-<h2>Your Favorite Leaders</h2>
+<h2>Your Favorite Honchos</h2>
 
 <h2>Your Favorite Constituents</h2>
 

@@ -42,6 +42,11 @@ create_user = async (user) => {
     return rs
 }
 
+get_users = async _ => {
+    let rs = await db.query('SELECT * FROM users')
+    return rs.payload
+}
+
 module.exports = {
     create_user,
     create_user_api : async (req, res) => {
@@ -51,6 +56,13 @@ module.exports = {
         res.set('Content-Type', 'application/json; charset=UTF-8')
         res.send(JSON.stringify(rs))
     },
+
+    get_users_api : async (req, res) => {
+        let rs = { "status": 1 }
+        rs.users = await get_users()
+        res.json(rs)
+    },
+
     get_user_by_id : async (id) => {
         let rs = await db.query('SELECT * FROM users WHERE id = $1', [id])
         // console.log(" **** get_user_by_id", rs)
@@ -62,6 +74,7 @@ module.exports = {
         rs.status = 0
         return rs
     },
+
     get_user_by_email : async (email) => {
         let rs = await db.query('SELECT * FROM users WHERE email = $1', [email])
         // console.log(" **** get_user_by_email", rs)

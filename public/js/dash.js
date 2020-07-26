@@ -4,6 +4,26 @@ dash.js
 ========
 */
 
+show_users = async () => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const user_id = urlParams.get('id')
+    const otp = urlParams.get('otp')
+
+    let res = await fetch(`/v1/users?uid=${user_id}&otp=${otp}`)
+    let rs = await res.json()
+    // console.log("$$$ rs", rs)
+
+    let users = []
+    rs.users.forEach( user => {
+        if( user_id != user.id ) {
+            users.push(`<li>${user.id} | ${user.name} | ${user.sovereignty}
+                        | <a href="javascript:follow(${user.id})">Follow</a></li>`)
+        }
+    })
+    document.querySelector('#users')
+    .innerHTML = users.join("")
+}
+
 show_edicts = async () => {
     const urlParams = new URLSearchParams(window.location.search)
     const user_id = urlParams.get('id')
@@ -57,4 +77,5 @@ promulgate = async () => {
     }
 }
 
+show_users()
 show_edicts()

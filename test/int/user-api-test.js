@@ -20,7 +20,19 @@ t.test('000: Initialization', async (t) => {
     t.end()
 })
 
-t.test('User.API.001: Successful REST API call that creates a valid user.', async (t) => {
+t.test('User.API.001: Successful REST GET all users', async (t) => {
+    let user_id = 1  // Set mock user id.  This user doesn't have a valid OTP and should fail.
+    let otp = "mock_otp_for_tests_good_until_2021"  // Set mock otp
+
+    // Call JSON REST API.
+    let res = await fetch(`${ROOT_URL}/v1/users?uid=${user_id}&otp=${otp}`)
+    let rs = await res.json()
+    t.equal(rs.status, 1, `REST '/v1/users' api call status: ${rs.status}`)
+    t.equal(rs.users.length, 5, `No of test users: ${rs.users.length}`)
+    t.end()
+})
+
+t.test('User.API.002: Successful REST API POST that creates a valid user.', async (t) => {
     // Create a valid mock user to submit for creation
     let req = {
         name: "Dave",
@@ -40,7 +52,7 @@ t.test('User.API.001: Successful REST API call that creates a valid user.', asyn
     t.end()
 })
 
-t.test('User.API.002: Failed REST API call - Duplicate User Email.', async (t) => {
+t.test('User.API.003: Failed REST API POST - Duplicate User Email.', async (t) => {
     // Create a valid mock user to submit for creation
     let req = {
         name: "Robert",
@@ -62,7 +74,7 @@ t.test('User.API.002: Failed REST API call - Duplicate User Email.', async (t) =
     t.end()
 })
 
-t.test('User.API.003: Failed REST API call - Invalid User Field.', async (t) => {
+t.test('User.API.004: Failed REST API POST - Invalid User Field.', async (t) => {
     // Create an invalid mock user to submit for creation
     // Missing 'name'
     let req = {

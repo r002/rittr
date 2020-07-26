@@ -10,12 +10,13 @@ const pool = new Pool({
     // https://stackoverflow.com/questions/54302088/how-to-fix-error-the-server-does-not-support-ssl-connections-when-trying-to-a
 })
 
-var home = require('./controllers/home')
-var publisher = require('./controllers/publisher')
-var users = require('./controllers/users')
-var authService = require('./services/auth-service')
-var userService = require('./services/user-service')
-var edictService = require('./services/edict-service')
+const home = require('./controllers/home')
+const publisher = require('./controllers/publisher')
+const users = require('./controllers/users')
+const authService = require('./services/auth-service')
+const userService = require('./services/user-service')
+const edictService = require('./services/edict-service')
+const c = require('./models/constants')
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
@@ -44,6 +45,7 @@ express()
 
   // JSON REST API GET:
   .get('/v1/user/:id/edicts', (req, res) => route_api(req, res, edictService.get_edicts_api))
+  .get('/v1/users', (req, res) => route_auth_api(req, res, userService.get_users_api))
 
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
@@ -69,4 +71,17 @@ route_auth = async (pool, req, res, fxn) => {
 route_api = (req, res, fxn) => {
     console.log("API called:", req.params, req.query, fxn)
     fxn(req, res)
+}
+
+route_auth_api = async (req, res, fxn) => {
+    console.log("Auth API called:", req.params, req.query, fxn)
+
+    let user_id = req.query.uid || req.params.uid
+    auth_rs = await authService.check_auth(user_id, req.query.otp)
+    if (1==auth_rs.status) {
+        fxn(req, res)
+    } else {
+        rs.errMsg  = c.ERR_E02_INVAL_AUTH
+        res.status(401).json(rs)  // 401-Unauthenticated; 403-Unauthorized
+    }
 }
