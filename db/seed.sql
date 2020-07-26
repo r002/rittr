@@ -64,6 +64,18 @@ create table edicts (
     created_on TIMESTAMP DEFAULT current_timestamp
 );
 
+insert into edicts (user_id, otp_id, law) values (
+    1,
+    1,
+    'Edict decree test 1.'
+);
+
+insert into edicts (user_id, otp_id, law) values (
+    1,
+    1,
+    'Edict decree test 2.'
+);
+
 -- create table sessions (
 --     id SERIAL PRIMARY KEY,
 --     user_id INT REFERENCES users (id),

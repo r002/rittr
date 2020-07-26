@@ -19,10 +19,8 @@ otp: <%= query.otp %>
 <h2>Edicts Your Leaders have Promulgated</h2>
 
 <h2>Edicts You have Promulgated</h2>
-<ul>
-    <% edicts.forEach( e => { %>
-        <li><%= e.id %> | <%= e.user_id %>  | <%= e.law %> | <%= e.created_on %></li>
-    <% }); %>
+<ul class='edicts'>
+    <div id='edicts'></div>
 </ul>
 
 ---

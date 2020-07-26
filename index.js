@@ -37,10 +37,14 @@ express()
   // .get('/sub', (req, res) => res.render('pages/sub'))
   // .get('/unsub', (req, res) => publisher.unsub(req, res))
 
-  // JSON REST API:
+  // JSON REST API POST:
   .post('/v1/otp_token', (req, res) => route_api(req, res, authService.email_otp_api))
   .post('/v1/user', (req, res) => route_api(req, res, userService.create_user_api))
   .post('/v1/edict', (req, res) => route_api(req, res, edictService.promulgate_api))
+
+  // JSON REST API GET:
+  .get('/v1/user/:id/edicts', (req, res) => route_api(req, res, edictService.get_edicts_api))
+
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
@@ -63,6 +67,6 @@ route_auth = async (pool, req, res, fxn) => {
 }
 
 route_api = (req, res, fxn) => {
-    console.log("API called: ", fxn)
+    console.log("API called:", req.params, req.query, fxn)
     fxn(req, res)
 }

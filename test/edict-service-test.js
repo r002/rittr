@@ -19,7 +19,20 @@ t.test('000: Initialization', async (t) => {
     t.end()
 })
 
-t.test('Edict.001: Successful REST API call to promulgate edict.', async (t) => {
+t.test('Edict.001: Successful REST API GET all edicts for a user.', async (t) => {
+
+    let user_id = 1  // Set mock user id.  This user doesn't have a valid OTP and should fail.
+    let otp = "mock_otp_for_tests_good_until_2021"  // Set mock otp
+
+    // Call JSON REST API.
+    let res = await fetch(`${ROOT_URL}/v1/user/${user_id}/edicts?otp=${otp}`)
+    let rs = await res.json()
+    t.equal(rs.status, 1, `REST '/v1/edict' status: ${JSON.stringify(rs.status)}`)
+    t.equal(rs.edicts.length, 2, `REST '/v1/edict' api call return: ${JSON.stringify(rs)}`)
+    t.end()
+})
+
+t.test('Edict.002: Successful REST API POST to promulgate edict.', async (t) => {
 
     let user_id = 1  // Set mock user id
     let otp = "mock_otp_for_tests_good_until_2021"  // Set mock otp
@@ -41,7 +54,7 @@ t.test('Edict.001: Successful REST API call to promulgate edict.', async (t) => 
     t.end()
 })
 
-t.test('Edict.002: Failed REST API call to promulgate edict.', async (t) => {
+t.test('Edict.003: Failed REST API POST to promulgate edict.', async (t) => {
 
     let user_id = 2  // Set mock user id.  This user doesn't have a valid OTP and should fail.
     let otp = "mock_otp_for_tests_good_until_2021"  // Set mock otp
