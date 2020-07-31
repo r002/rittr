@@ -41,13 +41,16 @@ express()
   // JSON REST API POST:
   .post('/v1/otp_token', (req, res) => route_api(req, res, authService.email_otp_api))
   .post('/v1/user', (req, res) => route_api(req, res, userService.create_user_api))
-  .post('/v1/edict', (req, res) => route_api(req, res, edictService.promulgate_api))
+
+  // Authenticated REST API POST:
+  .post('/v1/user/:uid/edict', (req, res) => route_auth_api(req, res, edictService.promulgate_api))
   .post('/v1/user/:uid/alpha', (req, res) => route_auth_api(req, res, userService.create_alpha_api))
 
   // JSON REST API GET:
-  .get('/v1/user/:id/edicts', (req, res) => route_api(req, res, edictService.get_edicts_api))
+  .get('/v1/user/:uid/edicts', (req, res) => route_auth_api(req, res, edictService.get_edicts_api))
   .get('/v1/user/:uid/alphas', (req, res) => route_auth_api(req, res, userService.get_alphas_api))
   .get('/v1/user/:uid/others', (req, res) => route_auth_api(req, res, userService.get_others_api))
+  .get('/v1/user/:uid/edictstream', (req, res) => route_auth_api(req, res, edictService.get_edictstream_api))
 
   // Currently unused by GUI:
   .get('/v1/users', (req, res) => route_auth_api(req, res, userService.get_users_api))
@@ -79,7 +82,7 @@ route_api = (req, res, fxn) => {
 }
 
 route_auth_api = async (req, res, fxn) => {
-    console.log("Auth API called:", req.params, req.query, fxn)
+    console.log("Auth API called:", req.params, req.query, req.body, fxn)
 
     let user_id = req.query.uid || req.params.uid
     let otp = req.query.otp || req.params.otp || req.body.otp

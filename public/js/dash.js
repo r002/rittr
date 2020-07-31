@@ -57,6 +57,23 @@ show_edicts = async () => {
     .innerHTML = edicts.join("")
 }
 
+show_edictstream = async () => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const user_id = urlParams.get('id')
+    const otp = urlParams.get('otp')
+
+    let res = await fetch(`/v1/user/${user_id}/edictstream?otp=${otp}`)
+    let rs = await res.json()
+    // console.log("$$$ rs", rs)
+
+    let edictstream = []
+    rs.edictstream.forEach( e => {
+        edictstream.push(`<li>${e.id} | ${e.name} | ${e.law} | ${e.created_on}</li>`)
+    })
+    document.querySelector('#edictstream')
+    .innerHTML = edictstream.join("")
+}
+
 promulgate = async () => {
     let law = document.querySelector('#law').value
     // console.log("#law:", law)
@@ -71,7 +88,7 @@ promulgate = async () => {
         "law": law
     }
 
-    let res = await fetch(`/v1/edict`, {
+    let res = await fetch(`/v1/user/${user_id}/edict?otp=${otp}`, {
         method: 'POST',
         body: JSON.stringify(req),
         headers: {
@@ -96,3 +113,4 @@ promulgate = async () => {
 show_others()
 show_alphas()
 show_edicts()
+show_edictstream()

@@ -57,6 +57,18 @@ insert into one_time_passwords (user_id, otp, expiry) values (
     now() + INTERVAL '365 days'
 );
 
+insert into one_time_passwords (user_id, otp, expiry) values (
+    2,
+    'mock_otp_for_alice',
+    now() + INTERVAL '365 days'
+);
+
+insert into one_time_passwords (user_id, otp, expiry) values (
+    3,
+    'mock_otp_for_bob',
+    now() + INTERVAL '365 days'
+);
+
 create table edicts (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users (id),
@@ -68,13 +80,37 @@ create table edicts (
 insert into edicts (user_id, otp_id, law) values (
     1,
     1,
-    'Edict decree test 1.'
+    'Robert Edict Seed #1.'
 );
 
 insert into edicts (user_id, otp_id, law) values (
     1,
     1,
-    'Edict decree test 2.'
+    'Robert Edict Seed #2.'
+);
+
+insert into edicts (user_id, otp_id, law) values (
+    2,
+    2,
+    'Alice Edict Seed #1.'
+);
+
+insert into edicts (user_id, otp_id, law) values (
+    2,
+    2,
+    'Alice Edict Seed #2.'
+);
+
+insert into edicts (user_id, otp_id, law) values (
+    3,
+    3,
+    'Bob Edict Seed #1.'
+);
+
+insert into edicts (user_id, otp_id, law) values (
+    3,
+    3,
+    'Bob Edict Seed #2.'
 );
 
 create table alphas (
@@ -89,6 +125,12 @@ create table alphas (
 INSERT INTO alphas (user_id, alpha_id, otp_id) VALUES (
     1,
     2,
+    1
+);
+
+INSERT INTO alphas (user_id, alpha_id, otp_id) VALUES (
+    1,
+    3,
     1
 );
 
