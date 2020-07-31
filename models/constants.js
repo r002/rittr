@@ -8,4 +8,5 @@ module.exports = {
 
     ERR_E02_INVAL_AUTH : `ERR-E02: Invalid auth to perform action.`,
 
+    ERR_A01_PROB_CREATE_ALPHA : `ERR-A01: Problem creating alpha relationship.`,
 }

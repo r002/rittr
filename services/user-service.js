@@ -1,6 +1,9 @@
-// ./services/user-service.js
-// Responsible for all UserService methods (Create, Retrieve, Update, Delete, API methods).
-// ========
+/*
+========
+./services/user-service.js
+Responsible for all UserService methods (Create, Retrieve, Update, Delete, API methods).
+========
+*/
 
 const db = require('../services/db')
 const c = require('../models/constants')
@@ -45,6 +48,37 @@ create_user = async (user) => {
 get_users = async _ => {
     let rs = await db.query('SELECT * FROM users')
     return rs.payload
+    // return rs.payload.map(row => create_user(row))
+}
+
+get_others = async (user_id) => {
+    let rs = await db.query('SELECT * FROM users WHERE id !=$1 AND id NOT IN ' +
+                            '(SELECT u.id FROM alphas AS a INNER JOIN users AS u ' +
+                            'ON a.alpha_id=u.id WHERE a.user_id=$1)', [user_id])
+    // console.log("****** get_others rs", rs)
+    return rs.payload
+}
+
+get_alphas = async (user_id) => {
+    let rs = await db.query('SELECT u.id, u.name, u.sovereignty FROM alphas AS a ' +
+                            'INNER JOIN users AS u ON a.alpha_id=u.id ' +
+                            'WHERE a.user_id=$1', [user_id])
+    return rs.payload
+}
+
+create_alpha = async (alpha) => {
+    let query = 'INSERT INTO alphas (user_id, alpha_id, otp_id) VALUES ($1, $2, $3) ' +
+                'ON CONFLICT (user_id, alpha_id) ' +
+                'DO NOTHING ' +
+                'RETURNING *'
+    let db_rs = await db.query(query, [alpha.user_id, alpha.alpha_id, alpha.otp_id])
+    let rs = { "status": 0 }
+    if (0 == db_rs.status) {
+        rs.errMsg  = c.ERR_A01_PROB_CREATE_ALPHA
+    } else {
+        rs.status = 1
+    }
+    return rs
 }
 
 module.exports = {
@@ -55,6 +89,26 @@ module.exports = {
         rs = await create_user(user)
         res.set('Content-Type', 'application/json; charset=UTF-8')
         res.send(JSON.stringify(rs))
+    },
+
+    create_alpha_api : async (req, res) => {
+        // console.log("create_alpha_api - Received: ", req.body)
+        let alpha = req.body
+        rs = await create_alpha(alpha)
+        res.json(rs)
+    },
+
+    get_alphas_api : async (req, res) => {
+        let rs = { "status": 1 }
+        rs.alphas = await get_alphas(req.params.uid)
+        res.json(rs)
+    },
+
+    // Gets all other users that uid is currently not following.
+    get_others_api : async (req, res) => {
+        let rs = { "status": 1 }
+        rs.others = await get_others(req.body.uid)
+        res.json(rs)
     },
 
     get_users_api : async (req, res) => {

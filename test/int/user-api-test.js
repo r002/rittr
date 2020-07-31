@@ -108,6 +108,72 @@ t.test('User.API.005: Failed REST API POST - Invalid User Field.', async (t) => 
     t.end()
 })
 
+t.test('User.API.006: Successful REST API POST that creates an alpha for a user.', async (t) => {
+    let user_id = 1
+    let otp = "mock_otp_for_tests_good_until_2021"  // Set mock otp
+    let req = {
+        user_id: user_id,
+        alpha_id: 3,
+        otp: otp
+    }
+    // Call JSON REST API.
+    let res = await fetch(`${ROOT_URL}/v1/user/${user_id}/alpha`, {
+            method: 'POST',
+            body: JSON.stringify(req),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        })
+    let rs = await res.json()
+    t.equal(rs.status, 1, `REST '/v1/user/:uid/alpha' api call return: ${JSON.stringify(rs)}`)
+    t.end()
+})
+
+t.test('User.API.007: Do-Nothing REST API POST-- User tries to create an existing alpha.', async (t) => {
+    let user_id = 1
+    let otp = "mock_otp_for_tests_good_until_2021"  // Set mock otp
+    let req = {
+        user_id: user_id,
+        alpha_id: 3,
+        otp: otp
+    }
+    // Call JSON REST API.
+    let res = await fetch(`${ROOT_URL}/v1/user/${user_id}/alpha`, {
+            method: 'POST',
+            body: JSON.stringify(req),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        })
+    let rs = await res.json()
+    t.equal(rs.status, 1, `REST '/v1/user/:uid/alpha' api call return: ${JSON.stringify(rs)}`)
+    t.end()
+})
+
+t.test('User.API.008: REST API GET-- Get all alphas for a user.', async (t) => {
+    let user_id = 1
+    let otp = "mock_otp_for_tests_good_until_2021"  // Set mock otp
+
+    // Call JSON REST API.
+    let res = await fetch(`${ROOT_URL}/v1/user/${user_id}/alphas?otp=${otp}`)
+    let rs = await res.json()
+    t.equal(rs.status, 1, `REST '/v1/user/:uid/alphas' api GET status: ${rs.status}`)
+    t.equal(rs.alphas.length, 2, `No of test alphas for uid=1: ${rs.alphas.length}`)
+    t.end()
+})
+
+t.test('User.API.009: REST API GET-- Get all others for a user.', async (t) => {
+    let user_id = 1
+    let otp = "mock_otp_for_tests_good_until_2021"  // Set mock otp
+
+    // Call JSON REST API.
+    let res = await fetch(`${ROOT_URL}/v1/user/${user_id}/others?otp=${otp}`)
+    let rs = await res.json()
+    t.equal(rs.status, 1, `REST '/v1/user/:uid/others' api GET status: ${rs.status}`)
+    t.equal(rs.others.length, 3, `No of test others for uid=1: ${rs.others.length}`)
+    t.end()
+})
+
 t.teardown( _ => {
     console.log("~~ User-API-Test Suite finished. Reset db & close connection pool.")
     util.reset_db()

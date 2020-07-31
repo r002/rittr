@@ -4,24 +4,40 @@ dash.js
 ========
 */
 
-show_users = async () => {
+show_alphas = async _ => {
     const urlParams = new URLSearchParams(window.location.search)
     const user_id = urlParams.get('id')
     const otp = urlParams.get('otp')
 
-    let res = await fetch(`/v1/users?uid=${user_id}&otp=${otp}`)
+    let res = await fetch(`/v1/user/${user_id}/alphas?otp=${otp}`)
     let rs = await res.json()
     // console.log("$$$ rs", rs)
 
-    let users = []
-    rs.users.forEach( user => {
-        if( user_id != user.id ) {
-            users.push(`<li>${user.id} | ${user.name} | ${user.sovereignty}
-                        | <a href="javascript:follow(${user.id})">Follow</a></li>`)
-        }
+    let alphas = []
+    rs.alphas.forEach( alpha => {
+        alphas.push(`<li>${alpha.id} | ${alpha.name} | ${alpha.sovereignty}
+                    | <a href="javascript:unfollow(${alpha.id})">Unfollow</a></li>`)
     })
-    document.querySelector('#users')
-    .innerHTML = users.join("")
+    document.querySelector('#alphas')
+    .innerHTML = alphas.join("")
+}
+
+show_others = async () => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const user_id = urlParams.get('id')
+    const otp = urlParams.get('otp')
+
+    let res = await fetch(`/v1/user/${user_id}/others?otp=${otp}`)
+    let rs = await res.json()
+    // console.log("$$$ rs", rs)
+
+    let others = []
+    rs.others.forEach( other => {
+        others.push(`<li>${other.id} | ${other.name} | ${other.sovereignty}
+                    | <a href="javascript:follow(${other.id})">Follow</a></li>`)
+    })
+    document.querySelector('#others')
+    .innerHTML = others.join("")
 }
 
 show_edicts = async () => {
@@ -77,5 +93,6 @@ promulgate = async () => {
     }
 }
 
-show_users()
+show_others()
+show_alphas()
 show_edicts()

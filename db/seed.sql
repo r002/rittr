@@ -1,3 +1,4 @@
+drop table alphas;
 drop table edicts;
 drop table one_time_passwords;
 drop table users;
@@ -74,6 +75,21 @@ insert into edicts (user_id, otp_id, law) values (
     1,
     1,
     'Edict decree test 2.'
+);
+
+create table alphas (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users (id),
+    alpha_id INT REFERENCES users (id),
+    otp_id INT REFERENCES one_time_passwords (id),
+    created_on TIMESTAMP DEFAULT current_timestamp,
+    UNIQUE (user_id, alpha_id)
+);
+
+INSERT INTO alphas (user_id, alpha_id, otp_id) VALUES (
+    1,
+    2,
+    1
 );
 
 -- create table sessions (
