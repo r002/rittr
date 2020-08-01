@@ -54,15 +54,16 @@ get_users = async _ => {
 get_others = async (user_id) => {
     let rs = await db.query('SELECT * FROM users WHERE id !=$1 AND id NOT IN ' +
                             '(SELECT u.id FROM alphas AS a INNER JOIN users AS u ' +
-                            'ON a.alpha_id=u.id WHERE a.user_id=$1)', [user_id])
+                            'ON a.alpha_id=u.id WHERE a.user_id=$1) ' +
+                            'ORDER BY created_on DESC', [user_id])
     // console.log("****** get_others rs", rs)
     return rs.payload
 }
 
 get_alphas = async (user_id) => {
-    let rs = await db.query('SELECT u.id, u.name, u.sovereignty FROM alphas AS a ' +
+    let rs = await db.query('SELECT u.id, u.name, u.sovereignty, a.created_on FROM alphas AS a ' +
                             'INNER JOIN users AS u ON a.alpha_id=u.id ' +
-                            'WHERE a.user_id=$1', [user_id])
+                            'WHERE a.user_id=$1 ORDER BY u.created_on DESC', [user_id])
     return rs.payload
 }
 
@@ -81,6 +82,19 @@ create_alpha = async (alpha) => {
     return rs
 }
 
+delete_alpha = async (alpha) => {
+    let query = 'DELETE FROM alphas WHERE user_id=$1 AND alpha_id=$2 ' +
+                'RETURNING *'
+    let db_rs = await db.query(query, [alpha.user_id, alpha.alpha_id])
+    let rs = { "status": 0 }
+    if (0 == db_rs.status) {
+        rs.errMsg  = c.ERR_A02_PROB_DELETE_ALPHA
+    } else {
+        rs.status = 1
+    }
+    return rs
+}
+
 module.exports = {
     create_user,
     create_user_api : async (req, res) => {
@@ -93,8 +107,21 @@ module.exports = {
 
     create_alpha_api : async (req, res) => {
         // console.log("create_alpha_api - Received: ", req.body)
-        let alpha = req.body
+        let alpha = {
+            "user_id": req.params.uid,
+            "alpha_id": req.params.aid,
+            "otp_id": req.body.otp_id
+        }
         rs = await create_alpha(alpha)
+        res.json(rs)
+    },
+
+    delete_alpha_api : async (req, res) => {
+        let alpha = {
+            "user_id": req.params.uid,
+            "alpha_id": req.params.aid
+        }
+        rs = await delete_alpha(alpha)
         res.json(rs)
     },
 

@@ -4,18 +4,48 @@ dash.js
 ========
 */
 
-show_alphas = async _ => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const user_id = urlParams.get('id')
-    const otp = urlParams.get('otp')
+const urlParams = new URLSearchParams(window.location.search)
+const user_id = urlParams.get('id')
+const otp = urlParams.get('otp')
 
+follow = async (alpha_id) => {
+    let res = await fetch(`/v1/user/${user_id}/alpha/${alpha_id}?otp=${otp}`, {
+            method: 'POST'
+        })
+    let rs = await res.json()
+    if(1==rs.status) {
+        show_others()
+        show_alphas()
+        show_edictstream()
+    } else {
+        // Convert to a flash message later.
+        alert("Error occurred following!")
+    }
+}
+
+unfollow = async (alpha_id) => {
+    let res = await fetch(`/v1/user/${user_id}/alpha/${alpha_id}?otp=${otp}`, {
+            method: 'DELETE'
+        })
+    let rs = await res.json()
+    if(1==rs.status) {
+        show_others()
+        show_alphas()
+        show_edictstream()
+    } else {
+        // Convert to a flash message later.
+        alert("Error occurred unfollowing!")
+    }
+}
+
+show_alphas = async _ => {
     let res = await fetch(`/v1/user/${user_id}/alphas?otp=${otp}`)
     let rs = await res.json()
     // console.log("$$$ rs", rs)
 
     let alphas = []
     rs.alphas.forEach( alpha => {
-        alphas.push(`<li>${alpha.id} | ${alpha.name} | ${alpha.sovereignty}
+        alphas.push(`<li>${alpha.id} | ${alpha.name} | ${alpha.sovereignty} | ${alpha.created_on}
                     | <a href="javascript:unfollow(${alpha.id})">Unfollow</a></li>`)
     })
     document.querySelector('#alphas')
@@ -23,10 +53,6 @@ show_alphas = async _ => {
 }
 
 show_others = async () => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const user_id = urlParams.get('id')
-    const otp = urlParams.get('otp')
-
     let res = await fetch(`/v1/user/${user_id}/others?otp=${otp}`)
     let rs = await res.json()
     // console.log("$$$ rs", rs)
@@ -41,10 +67,6 @@ show_others = async () => {
 }
 
 show_edicts = async () => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const user_id = urlParams.get('id')
-    const otp = urlParams.get('otp')
-
     let res = await fetch(`/v1/user/${user_id}/edicts?otp=${otp}`)
     let rs = await res.json()
     // console.log("$$$ rs", rs)
@@ -58,10 +80,6 @@ show_edicts = async () => {
 }
 
 show_edictstream = async () => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const user_id = urlParams.get('id')
-    const otp = urlParams.get('otp')
-
     let res = await fetch(`/v1/user/${user_id}/edictstream?otp=${otp}`)
     let rs = await res.json()
     // console.log("$$$ rs", rs)
@@ -77,10 +95,6 @@ show_edictstream = async () => {
 promulgate = async () => {
     let law = document.querySelector('#law').value
     // console.log("#law:", law)
-
-    const urlParams = new URLSearchParams(window.location.search)
-    const user_id = urlParams.get('id')
-    const otp = urlParams.get('otp')
 
     let req = {
         "user_id": user_id,

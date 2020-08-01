@@ -44,7 +44,10 @@ express()
 
   // Authenticated REST API POST:
   .post('/v1/user/:uid/edict', (req, res) => route_auth_api(req, res, edictService.promulgate_api))
-  .post('/v1/user/:uid/alpha', (req, res) => route_auth_api(req, res, userService.create_alpha_api))
+  .post('/v1/user/:uid/alpha/:aid', (req, res) => route_auth_api(req, res, userService.create_alpha_api))
+
+  // Authenticated REST API DELETE:
+  .delete('/v1/user/:uid/alpha/:aid', (req, res) => route_auth_api(req, res, userService.delete_alpha_api))
 
   // JSON REST API GET:
   .get('/v1/user/:uid/edicts', (req, res) => route_auth_api(req, res, edictService.get_edicts_api))
@@ -52,7 +55,7 @@ express()
   .get('/v1/user/:uid/others', (req, res) => route_auth_api(req, res, userService.get_others_api))
   .get('/v1/user/:uid/edictstream', (req, res) => route_auth_api(req, res, edictService.get_edictstream_api))
 
-  // Currently unused by GUI:
+  // Currently unused by GUI (deprecated):
   .get('/v1/users', (req, res) => route_auth_api(req, res, userService.get_users_api))
 
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
