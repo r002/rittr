@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxygen&display=swap');
+
+body {
+    background-color: yellow;
+    font-family: 'Oxygen', sans-serif;
+    /* margin: 40px; */
+}
+
+a:link {
+    color: blue;
+    text-decoration: none;
+}
+
+a:visited {
+    color: blue;
+	text-decoration: none;
+}
+
+a:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
+a:active {
+    color: blue;
+}
+
+/***************************************/
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 150px 330px 330px 330px 330px 330px;
+  grid-gap: 7px;
+  padding: 7px;
+  background-color: #2196F3;
+  margin: auto;
+}
+
+.box {
+  padding: 10px;
+  background-color: azure;
+}
+
+.box-title {
+    padding: 10px;
+    background-color: azure;
+    font-weight: bold;
+}
+
+.box-empty {
+  padding: 10px;
+  background-color: pink;
+}
+
+
+/***************************************/
+
+.edict-card-lite {
+    display: grid;
+    grid-template-areas:
+    'edict'
+    'date';
+    grid-gap: 4px;
+    background-color: salmon;
+    /* padding: 4px; */
+    /* width: 310px; */
+}
+
+.edict-card-lite > div {
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  padding: 8px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: lightgray;
+}
+
+.edict-card {
+    display: grid;
+    grid-template-areas:
+        'avatar title date'
+        'avatar edict edict';
+    grid-gap: 4px;
+    background-color: salmon;
+    padding: 4px;
+    width: 460px;
+}
+
+.edict-card > div {
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  padding: 5px;
+}
+
+.avatar {
+    grid-area: avatar;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.title {
+    grid-area: title;
+    font-size: 11px;
+    background-color: gold;
+}
+
+.edict {
+    grid-area: edict;
+    font-size: 16px;
+    background-color: lightyellow;
+}
+
+.date {
+    grid-area: date;
+    font-size: 11px;
+    background-color: lightgreen;
+    text-align: right;
+}
+
+/***************************************/
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header header flash'
+    'main-grid main-grid main-grid'
+    'left main right'
+    'footer footer footer';
+  grid-gap: 10px;
+  background-color: #2196F3;
+  padding: 10px;
+  width: 1900px;
+  margin: auto;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  /* text-align: center; */
+  padding: 20px;
+  /* font-size: 30px; */
+}
+
+.main-grid {
+    grid-area: main-grid;
+    /* margin: auto; */
+}
+
+.header { grid-area: header; }
+.flash { grid-area: flash; }
+.left {
+    grid-area: left;
+    width: 500px;
+}
+.main {
+    grid-area: main;
+    width: 750px;
+}
+.right {
+    grid-area: right;
+    width: 500px;
+}
+.footer { grid-area: footer; }

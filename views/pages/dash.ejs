@@ -2,56 +2,248 @@
 <html>
 <head>
   <title>Dashboard</title>
+  <link rel="stylesheet" href="css/dash.css">
   <script src="js/dash.js"></script>
 </head>
 
 <body>
 
-<h2>User Info</h2>
-USER id: <%= query.id %><br />
-This session's otp: <%= query.otp %>
+    <div class="grid-container">
+        <div class="header">
+            <h2>November 2020 rapidly approaches!</h2>
 
-<h2>Other Honchos in the Universe</h2>
-<ul class='others'>
-    <div id='others'></div>
-</ul>
+            As we all know, a democracy depends on a well-informed electorate.<br /><br />
 
-<h2>List of Honchos You're Following</h2>
-<ul class='alphas'>
-    <div id='alphas'></div>
-</ul>
+            But this day and age, it's nigh impossible to discern signal from noise.  What/whom do we believe?  What are lies and propaganda?  For example, what is really going on in Seattle and Portland?  Honestly, who knows anymore?<br /><br />
 
-<h2><del>List of Constituents Following You</del></h2>
+            We have freedom of the press in America but because of capitalism, every media outlet is incentivized to click-bait farm as much as possible to get those ad-dollars.
+            Sensationalist headlines rule the day.  <a href="https://www.washingtonpost.com/news/the-intersect/wp/2016/06/16/six-in-10-of-you-will-share-this-link-without-reading-it-according-to-a-new-and-depressing-study/">59% of links shared on social media are never actually clicked.</a><br /><br />
+            So I've created this webapp to summarize the views of our leaders.  Directly from the horses' mouths, unfiltered.  Straight from the source.<br /><br />
 
-<h2>Unified EdictStream Your Honchos have Promulgated</h2>
-<ul class='edictstream'>
-    <div id='edictstream'></div>
-</ul>
+            Technically, we live in a democratic <em><strong>republic</strong></em>.  We have elections but we generally trust our leaders to <em><strong>lead</strong></em> us.  We elect them into office and then basically trust them to Do The Right Thing.
+            And every four years, we get to install new people in office if we're unhappy with how things are going.<br /><br />
 
-<h2>Edicts You've Promulgated</h2>
-<ul class='edicts'>
-    <div id='edicts'></div>
-</ul>
+            So in 2020, let's forget the media.  I know there are good journalists/reporters doing good work out there, but I can't actually <em><strong>find</strong></em> them.
+            So let's just throw the baby out with the bathwater.<br /><br />
 
----
+            In 2020, let's go straight to the source:
+        </div>
+        <div class="flash">Flash message goes here!</div>
 
-<h2><del>Your Favorite Edicts</del></h2>
+        <div class="main-grid">
+            Who most shares your values?<br /><br />
+            <div class="wrapper">
+                <div></div>
+                <div class="box-title">"Economy"</div>
+                <div class="box-title">"Education"</div>
+                <div class="box-title">"Immigration"</div>
+                <div class="box-title">"Virus" (and all related terms)</div>
+                <div class="box-title">Most Favorited</div>
 
-<h2><del>Your Favorite Honchos</del></h2>
+                <div class="box"><img src="img/bernie.png" width="125px" /></div>
+                <div class="box">
+                    <div class="edict-card-lite">
+                        <div class="edict">And the very rich get much richer. Over half of American households have lost income during the pandemic, while 491 billionaires have increased their wealth by $743 billion. This is obscene. We need an <strong>economy</strong> that works for all, not a rigged economy for the wealthy and powerful.</div>
+                        <div class="date"><a href="https://twitter.com/BernieSanders/status/1289977300050567175">Sunday - August 2, 2020 - 1:32p EDT</a></div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="edict-card-lite">
+                        <div class="edict">We must change our priorities. Add your name to say you support a 10% cut in annual Pentagon spending to allow for investments in jobs, <strong>education</strong>, health care and poverty reduction in America’s most vulnerable communities.</div>
+                        <div class="date"><a href="https://twitter.com/BernieSanders/status/1285594882434838530">Tuesday - July 21, 2020 - 11:17a EDT</a></div>
+                    </div>
+                </div>
+                <div class="box-empty">Sorry, this leader has not mentioned <strong>"immigration"</strong> in the past 30 days.</div>
+                <div class="box">
+                    <div class="edict-card-lite">
+                        <div class="edict">
+                            The business model of the pharmaceutical industry is unfettered greed.<br /><br />
+                            This is not the time for corporate profiteering of off death and suffering.<br /><br />
+                            We must guarantee that <strong>coronavirus</strong> treatments and vaccines are free to all Americans.
+                        </div>
+                        <div class="date"><a href="https://twitter.com/BernieSanders/status/1278779710948945921">Thursday - July 2, 2020 - 3:56p EDT</a></div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="edict-card-lite">
+                        <div class="edict">
+                            The very, very rich are getting much richer during the pandemic:<br /><br />
+                            ⬆️$73 billion: Jeff Bezos<br />
+                            ⬆️$45 billion: Elon Musk<br />
+                            ⬆️$31 billion: Mark Zuckerberg<br />
+                            ⬆️$28 billion: Bill Gates<br />
+                            ⬆️$19 billion: L Page<br />
+                            ⬆️$19 billion: Sergey Brin<br /><br />
+                            Total: $215 billion<br /><br />
+                            <strong>Tax</strong> their wealth. Break up Big Tech
+                        </div>
+                        <div class="date"><a href="https://twitter.com/BernieSanders/status/1288504093133152259">Wednesday - July 29, 2020 - 11:58a EDT</a></div>
+                    </div>
+                </div>
 
-<h2><del>Your Favorite Constituents</del></h2>
+                <div class="box"><img src="img/biden.jpg" width="125px" /></div>
+                <div class="box">
+                    <div class="edict-card-lite">
+                        <div class="edict">
+                            Donald Trump has shown that he can’t beat the pandemic or turn the <strong>economy</strong> around. And he is unsurprisingly stoking the flames of division for political gain.<br /><br />
+                            He is the worst possible person to lead our nation through this moment.
+                        </div>
+                        <div class="date"><a href="https://twitter.com/JoeBiden/status/1288564199723921408">Wednesday - July 29, 2020 - 3:57p EDT</a></div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="edict-card-lite">
+                        <div class="edict">
+                            Our students and educators deserve better than four more years of Betsy DeVos. It’s time for a Secretary of <strong>Education</strong> who is actually a public school educator.
+                        </div>
+                        <div class="date"><a href="https://twitter.com/JoeBiden/status/1288120526683029512">Tuesday - July 28, 2020 - 10:34a EDT</a></div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="edict-card-lite">
+                        <div class="edict">
+                            Home care workers and child care workers — who are more often women, women of color, and <strong>immigrants</strong> — have been underpaid, unseen, and undervalued for far too long.
+                        </div>
+                        <div class="date"><a href="https://twitter.com/JoeBiden/status/1286670471623254018">Friday - July 24, 2020 - 10:32a EDT</a></div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="edict-card-lite">
+                        <div class="edict">
+                            Enhanced unemployment benefits expired for millions overnight.<br /><br />
+                            We don’t have an effective nationwide testing program or a plan to control the <strong>virus</strong>.<br /><br />
+                            Our health care workers still don’t have enough PPE.<br /><br />
+                            Enough with the weekend golf trips, Mr. President. Do your job.
+                        </div>
+                        <div class="date"><a href="https://twitter.com/JoeBiden/status/1289712264468193280">Saturday - August 1, 2020 - 7:59a EDT</a></div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="edict-card-lite">
+                        <div class="edict">
+                            Now more than ever, we need a president who believes in <strong>science</strong>.
+                        </div>
+                        <div class="date"><a href="https://twitter.com/JoeBiden/status/1289964174575976449">Sunday - August 2, 2020 - 12:40p EDT</a></div>
+                    </div>
+                </div>
 
----<br /><br />
+                <div class="box"><img src="img/obama.jpg" width="125px" /></div>
+                <div class="box">
+                    <div class="edict-card-lite">
+                        <div class="edict">
+                            Ten years ago, I signed Wall Street reform into law. It was the most sweeping set of financial regulations since the Great Depression—and it’s still working today to prevent another one. Now, it’s up to us to protect it and keep fighting for an <strong>economy</strong> that works for everybody.
+                        </div>
+                        <div class="date"><a href="https://twitter.com/BarackObama/status/1285594646698172418">Tuesday - July 21, 2020 - 11:17p EDT</a></div>
+                    </div>
+                </div>
+                <div class="box-empty">Sorry, this leader has not mentioned <strong>"education"</strong> in the past 30 days.</div>
+                <div class="box-empty">Sorry, this leader has not mentioned <strong>"immigration"</strong> in the past 30 days.</div>
+                <div class="box">
+                    <div class="edict-card-lite">
+                        <div class="edict">
+                            This pandemic is far from over––and our medical professionals continue to put their lives on the line to keep our country going. @JoeBiden
+                            and I had a chance to thank Dr. @Craig_A_Spencer for his work during the Ebola crisis and this current <strong>pandemic</strong>.
+                        </div>
+                        <div class="date"><a href="https://twitter.com/BarackObama/status/1289606838850396160">Saturday - August 1, 2020 - 1:00p EDT</a></div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="edict-card-lite">
+                        <div class="edict">
+                            <a href="https://t.co/7UHT86OzEj?amp=1">John believed that in all of us, there exists the capacity for great <strong>courage</strong> and a longing to do what’s right. We are so lucky to have had him show us the way. I offered some thoughts today on his life and how, like him, we can give it all we have.</a>
+                        </div>
+                        <div class="date"><a href="https://twitter.com/BarackObama/status/1288939275334057984">Thursday - July 30, 2020 - 4:47p EDT</a></div>
+                    </div>
+                </div>
 
-<label for="law">State your decree to all citizens of your land:</label><br />
-<textarea rows="4" cols="50" id="law" name="law">
-Hear, hear-- I decree my first edict!
-</textarea><br /><br />
+                <div class="box"><img src="img/trump.jpg" width="125px" /></div>
+                <div class="box-empty">Sorry, this leader has not mentioned <strong>"economy"</strong> in the past 30 days.</div>
+                <div class="box-empty">Sorry, this leader has not mentioned <strong>"education"</strong> in the past 30 days.</div>
+                <div class="box-empty">Sorry, this leader has not mentioned <strong>"immigration"</strong> in the past 30 days.</div>
+                <div class="box">
+                    <div class="edict-card-lite">
+                        <div class="edict">
+                            Big China <strong>Virus</strong> breakouts all over the World, including nations which were thought to have done a great job. The Fake News doesn’t report this. USA will be stronger than ever before, and soon!
+                        </div>
+                        <div class="date"><a href="https://twitter.com/realDonaldTrump/status/1289887533250351110">Sunday - August 2, 2020 - 7:35a EDT</a></div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="edict-card-lite">
+                        <div class="edict">
+                            MAKE AMERICA <strong>GREAT</strong> AGAIN!
+                        </div>
+                        <div class="date"><a href="https://twitter.com/realDonaldTrump/status/1289741750680993794">Saturday - August 1, 2020 - 9:56a EDT</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<a href="javascript:promulgate();">Promulgate!</a>
-<br /><br />
+        <div class="left">
+            <h2>User Info</h2>
+            USER id: <%= query.id %><br />
+            This session's otp: <%= query.otp %>
 
-<div id="msg_area"></div>
+            <h2>Other Leaders in the Universe</h2>
+            <ul class='others'>
+                <div id='others'></div>
+            </ul>
+
+            <h2>List of Leaders You're Following</h2>
+            <ul class='alphas'>
+                <div id='alphas'></div>
+            </ul>
+
+            <h2><del>List of Constituents Following You</del></h2>
+
+            <h2>Edicts You've Promulgated</h2>
+            <ul class='edicts'>
+                <div id='edicts'></div>
+            </ul>
+
+            ---
+
+            <h2><del>Your Favorite Edicts</del></h2>
+
+            <h2><del>Your Favorite Leaders</del></h2>
+
+            <h2><del>Your Favorite Constituents</del></h2>
+
+            ---<br /><br />
+
+            <label for="law">State your decree to all citizens of your land:</label><br />
+            <textarea rows="4" cols="50" id="law" name="law">Hear, hear-- I decree my first edict!</textarea>
+            <br /><br />
+
+            <a href="javascript:promulgate();">Promulgate!</a>
+            <br /><br />
+
+            <div id="msg_area"></div>
+        </div>
+
+        <div class="main">
+
+
+        </div>
+
+        <div class="right">
+            <h3>Unified EdictStream Your Leaders have Promulgated</h3>
+
+            <div class="edict-card">
+                <div class="avatar"><img src="img/gilbert.png" /></div>
+                <div class="title">Mayor Gilbert 🚀 Gilbert World</div>
+                <div class="edict">Thou Shall Eat Jelly Sandwiches Every Saturday.</div>
+                <div class="date">Saturday - August 1, 2020</div>
+            </div>
+
+            <ul class='edictstream'>
+                <div id='edictstream'></div>
+            </ul>
+        </div>
+
+        <div class="footer">Footer</div>
+
+    </div>
 
 </body>
 </html>
