@@ -90,7 +90,7 @@ show_edictstream = async () => {
         edictstream.push(`
             <div class="edict-card">
                 <div class="avatar">
-                    <img src="img/${e.avatar}" width="125px" /><br />
+                    <img src="img/${e.avatar}" width="105px" /><br />
                     ${e.name}<br />
                     ${e.sovereignty}
                 </div>
