@@ -27,7 +27,7 @@ a:active {
 
 /***************************************/
 
-.wrapper {
+.edict-grid {
   display: grid;
   grid-template-columns: 150px 330px 330px 330px 330px 330px;
   grid-gap: 7px;
@@ -77,17 +77,21 @@ a:active {
 .edict-card {
     display: grid;
     grid-template-areas:
-        'avatar title date'
-        'avatar edict edict';
-    grid-gap: 4px;
+        'avatar edict'
+        'avatar date';
+    grid-gap: 3px;
     background-color: salmon;
-    padding: 4px;
-    width: 460px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: salmon;
+      margin-bottom: 5px;
+    /* padding: 4px;
+    width: 460px; */
 }
 
 .edict-card > div {
   /* background-color: rgba(255, 255, 255, 0.8); */
-  padding: 5px;
+  padding: 8px;
 }
 
 .avatar {

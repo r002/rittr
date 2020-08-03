@@ -61,7 +61,7 @@ get_others = async (user_id) => {
 }
 
 get_alphas = async (user_id) => {
-    let rs = await db.query('SELECT u.id, u.name, u.sovereignty, a.created_on FROM alphas AS a ' +
+    let rs = await db.query('SELECT u.id, u.name, u.sovereignty, u.avatar, a.created_on FROM alphas AS a ' +
                             'INNER JOIN users AS u ON a.alpha_id=u.id ' +
                             'WHERE a.user_id=$1 ORDER BY u.created_on DESC', [user_id])
     return rs.payload

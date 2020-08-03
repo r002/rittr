@@ -45,7 +45,8 @@ show_alphas = async _ => {
 
     let alphas = []
     rs.alphas.forEach( alpha => {
-        alphas.push(`<li>${alpha.id} | ${alpha.name} | ${alpha.sovereignty} | ${alpha.created_on}
+        alphas.push(`<li>${alpha.id} | ${alpha.name} | ${alpha.sovereignty} | ${alpha.avatar}
+                    | ${alpha.created_on}
                     | <a href="javascript:unfollow(${alpha.id})">Unfollow</a></li>`)
     })
     document.querySelector('#alphas')
@@ -86,7 +87,16 @@ show_edictstream = async () => {
 
     let edictstream = []
     rs.edictstream.forEach( e => {
-        edictstream.push(`<li>${e.id} | ${e.name} | ${e.law} | ${e.created_on}</li>`)
+        edictstream.push(`
+            <div class="edict-card">
+                <div class="avatar">
+                    <img src="img/${e.avatar}" width="125px" /><br />
+                    ${e.name}<br />
+                    ${e.sovereignty}
+                </div>
+                <div class="edict">${e.law}</div>
+                <div class="date"><a href='${e.ref}'>${new Date(e.created_on)}</a></div>
+            </div>`)
     })
     document.querySelector('#edictstream')
     .innerHTML = edictstream.join("")

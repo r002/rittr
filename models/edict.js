@@ -11,6 +11,7 @@ module.exports = class Edict {
         this.otp =  otp
         this.otp_id =  null
         this.law = law
+        this.ref = null
         this.created_on = null
     }
 }

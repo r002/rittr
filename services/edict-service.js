@@ -29,7 +29,7 @@ get_edicts = async (user_id) => {
 }
 
 get_edictstream = async (user_id) => {
-    let rs = await db.query('SELECT e.id, e.user_id, u.name, e.law, e.created_on FROM edicts AS e ' +
+    let rs = await db.query('SELECT e.id, e.user_id, u.name, u.sovereignty, u.avatar, e.law, e.ref, e.created_on FROM edicts AS e ' +
                             'INNER JOIN users AS u ON e.user_id=u.id WHERE user_id IN ' +
                             '(SELECT a.alpha_id FROM alphas AS a WHERE a.user_id=$1) ' +
                             'ORDER BY e.created_on DESC', [user_id])

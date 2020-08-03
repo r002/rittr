@@ -8,7 +8,11 @@ module.exports = class User {
         this.name = name
         this.email =  email
         this.sovereignty = sovereignty
+        this.avatar = null
         this.created_on = null
         this.last_login = null
     }
 }
+
+
+// export function create_user = (row)
