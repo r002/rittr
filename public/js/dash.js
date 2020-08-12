@@ -8,6 +8,23 @@ const urlParams = new URLSearchParams(window.location.search)
 const user_id = urlParams.get('id')
 const otp = urlParams.get('otp')
 
+register = async _ => {
+    const client_id = Math.floor((Math.random() * 100) + 1)
+
+    let res = await fetch(`/v1/user/${user_id}/heartbeat/${client_id}?otp=${otp}`)
+    let rs = await res.json()
+    document.querySelector('#cid').innerHTML =
+        `<strong>Connected to Server!<br />Status:</strong>${JSON.stringify(rs)}`
+
+    // const source = new EventSource(`${root}/events?id=${client_id}`)
+    // source.addEventListener('message', message => {
+    //     console.log(`${client_id} | Got`, message);
+    //
+    //     // Display the event data in the `content` div
+    //     document.querySelector('#content').innerHTML = event.data;
+    // })
+}
+
 follow = async (alpha_id) => {
     let res = await fetch(`/v1/user/${user_id}/alpha/${alpha_id}?otp=${otp}`, {
             method: 'POST'
@@ -53,7 +70,7 @@ show_alphas = async _ => {
     .innerHTML = alphas.join("")
 }
 
-show_others = async () => {
+show_others = async _ => {
     let res = await fetch(`/v1/user/${user_id}/others?otp=${otp}`)
     let rs = await res.json()
     // console.log("$$$ rs", rs)
@@ -67,7 +84,7 @@ show_others = async () => {
     .innerHTML = others.join("")
 }
 
-show_edicts = async () => {
+show_edicts = async _ => {
     let res = await fetch(`/v1/user/${user_id}/edicts?otp=${otp}`)
     let rs = await res.json()
     // console.log("$$$ rs", rs)
@@ -80,7 +97,7 @@ show_edicts = async () => {
     .innerHTML = edicts.join("")
 }
 
-show_edictstream = async () => {
+show_edictstream = async _ => {
     let res = await fetch(`/v1/user/${user_id}/edictstream?otp=${otp}`)
     let rs = await res.json()
     // console.log("$$$ rs", rs)
@@ -102,7 +119,7 @@ show_edictstream = async () => {
     .innerHTML = edictstream.join("")
 }
 
-promulgate = async () => {
+promulgate = async _ => {
     let law = document.querySelector('#law').value
     // console.log("#law:", law)
 
@@ -134,6 +151,7 @@ promulgate = async () => {
     }
 }
 
+register()
 show_others()
 show_alphas()
 show_edicts()

@@ -16,6 +16,7 @@ const users = require('./controllers/users')
 const authService = require('./services/auth-service')
 const userService = require('./services/user-service')
 const edictService = require('./services/edict-service')
+const healthService = require('./services/health-service')
 const c = require('./models/constants')
 
 express()
@@ -32,11 +33,14 @@ express()
 
   // Requires authentication:
   .get('/', (req, res) => route_auth(pool, req, res, home.showDash))
-  .get('/admin/users', (req, res) => route_auth(pool, req, res, users.view))
+  // .get('/admin/users', (req, res) => route_auth(pool, req, res, users.view))
   .get('/times', (req, res) => route_auth(pool, req, res, home.showTimes))
+  .get('/admin', (req, res) => route_auth(pool, req, res, home.showAdmin))
   // .get('/events', (req, res) => publisher.launchSSE(req, res))
   // .get('/sub', (req, res) => res.render('pages/sub'))
   // .get('/unsub', (req, res) => publisher.unsub(req, res))
+
+  .get('/v1/health/clients', (req, res) => healthService.monitor(req, res))
 
   // JSON REST API POST:
   .post('/v1/otp_token', (req, res) => route_api(req, res, authService.email_otp_api))
@@ -54,6 +58,8 @@ express()
   .get('/v1/user/:uid/alphas', (req, res) => route_auth_api(req, res, userService.get_alphas_api))
   .get('/v1/user/:uid/others', (req, res) => route_auth_api(req, res, userService.get_others_api))
   .get('/v1/user/:uid/edictstream', (req, res) => route_auth_api(req, res, edictService.get_edictstream_api))
+
+  .get('/v1/user/:uid/heartbeat/:client_id', (req, res) => route_auth_api(req, res, healthService.heartbeat_api))
 
   // Currently unused by GUI (deprecated):
   .get('/v1/users', (req, res) => route_auth_api(req, res, userService.get_users_api))

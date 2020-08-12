@@ -24,6 +24,10 @@ module.exports = {
         res.render('pages/dash', req)
     },
 
+    showAdmin : async (pool, req, res) => {
+        res.render('pages/admin', req)
+    },
+
     showTimes : (pool, req, res) => {
         let result = ''
         const times = process.env.TIMES || 15
