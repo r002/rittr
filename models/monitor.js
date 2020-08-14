@@ -11,7 +11,7 @@ Features:
 */
 
 let instance = null
-let clients = {}  // Maps client_id => client objects
+let clients = new Map()  // Maps client_id => client objects
 
 module.exports = class Monitor {
 
@@ -22,13 +22,29 @@ module.exports = class Monitor {
 
     add_client(client) {
         client.ts = Date.now()
-        clients[client.id] = client
+        clients.set(client.id, client)
+        this.print_connected_clients()
+    }
 
-        console.log("******* All connected clients", clients)
+    print_connected_clients() {
+        console.log("******* Connected clients count:", clients.size)
+        for (const [client_id, client] of clients)
+        {
+            console.log(JSON.stringify({
+                client_id: client.id,
+                user_id: client.user_id,
+                ts: client.ts,
+            }))
+        }
     }
 
     broadcast(edict) {
-
+        for (const [client_id, client] of clients)
+        {
+            // console.log(`key: ${client_id}, value: ${JSON.stringify(client)}`)
+            client.res.write(`event: edict\n` +
+                             `data: {"edict": "Here is a test edict!"}\n\n`)
+        }
     }
 
     // Ping all connected clients and request a heartbeat.

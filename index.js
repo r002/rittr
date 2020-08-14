@@ -40,8 +40,6 @@ express()
   // .get('/sub', (req, res) => res.render('pages/sub'))
   // .get('/unsub', (req, res) => publisher.unsub(req, res))
 
-  .get('/v1/health/clients', (req, res) => healthService.monitor(req, res))
-
   // JSON REST API POST:
   .post('/v1/otp_token', (req, res) => route_api(req, res, authService.email_otp_api))
   .post('/v1/user', (req, res) => route_api(req, res, userService.create_user_api))
@@ -58,6 +56,9 @@ express()
   .get('/v1/user/:uid/alphas', (req, res) => route_auth_api(req, res, userService.get_alphas_api))
   .get('/v1/user/:uid/others', (req, res) => route_auth_api(req, res, userService.get_others_api))
   .get('/v1/user/:uid/edictstream', (req, res) => route_auth_api(req, res, edictService.get_edictstream_api))
+
+  .get('/v1/user/:uid/pipeline/:client_id', (req, res) => healthService.monitor(req, res))
+  .get('/test_broadcast', (req, res) => route_api(req, res, healthService.test_broadcast))  // Just testing; delete later. 8/13/20
 
   .get('/v1/user/:uid/heartbeat/:client_id', (req, res) => route_auth_api(req, res, healthService.heartbeat_api))
 
