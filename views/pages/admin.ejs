@@ -3,7 +3,6 @@
 <head>
   <title>Admin</title>
   <link rel="stylesheet" href="/css/admin.css">
-  <script src="/js/admin.js"></script>
 </head>
 
 <body>
@@ -12,19 +11,66 @@ Connection status:
 <div id="cid"></div>
 <br /><br />
 
+Flash broadcasts received from server:
+<div id="flashes_received"></div>
+<br /><br />
+
 Ping status:
 <div id="ping"></div>
 <br /><br />
 
-Clients:
-<div id="clients"></div>
+clientMap:
+<div id="clientMap"></div>
 <br /><br />
+
+<!-- <div class="grid-container">
+    <div class="grid-item title">Conn #</div>
+    <div class="grid-item title">Client Id</div>
+    <div class="grid-item title">User Id</div>
+    <div class="grid-item title">Mode</div>
+    <div class="grid-item title">Last Heartbeat</div>
+    <div class="grid-item title">Status</div>
+
+    <div class="grid-item">1</div>
+    <div class="grid-item">55</div>
+    <div class="grid-item">6</div>
+    <div class="grid-item">Normal</div>
+    <div class="grid-item">11:13:14 GMT-0400</div>
+    <div class="grid-item stale">Stale</div>
+
+    <div class="grid-item">2</div>
+    <div class="grid-item">52</div>
+    <div class="grid-item">6</div>
+    <div class="grid-item">Normal</div>
+    <div class="grid-item">11:17:57 GMT-0400</div>
+    <div class="grid-item connected">Connected</div>
+
+    <div class="grid-item">3</div>
+    <div class="grid-item">34</div>
+    <div class="grid-item">1</div>
+    <div class="grid-item">Admin</div>
+    <div class="grid-item">11:17:57 GMT-0400</div>
+    <div class="grid-item connected">Connected</div>
+
+</div>
+<br /><br /> -->
 
 EdictStream:
 <div id="edicts"></div>
 <br /><br />
 
+Broadcast flash message to all clients:<br />
+<textarea rows="4" cols="50" id="flash_broadcast" name="flash_broadcast">Greetings, clients!</textarea>
+<br /><br />
+
+<a href="javascript:broadcast_flash();">Broadcast flash!</a>
+<br /><br />
+
+<a href="javascript:request_client_heartbeats();">Request heartbeat from all clients.</a>
+<br /><br />
 
 </body>
+
+<script src="/js/admin.js"></script>
 
 <html>

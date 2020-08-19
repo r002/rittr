@@ -58,9 +58,11 @@ express()
   .get('/v1/user/:uid/edictstream', (req, res) => route_auth_api(req, res, edictService.get_edictstream_api))
 
   .get('/v1/user/:uid/pipeline/:client_id', (req, res) => healthService.monitor(req, res))
-  .get('/test_broadcast', (req, res) => route_api(req, res, healthService.test_broadcast))  // Just testing; delete later. 8/13/20
-
   .get('/v1/user/:uid/heartbeat/:client_id', (req, res) => route_auth_api(req, res, healthService.heartbeat_api))
+
+  // Admin API endpoints
+  .post('/v1/admin/:uid/flash_broadcast', (req, res) => route_auth_api(req, res, healthService.broadcast_flash))
+  .get('/v1/admin/:uid/clientmap_refresh', (req, res) => route_auth_api(req, res, healthService.clientmap_refresh))
 
   // Currently unused by GUI (deprecated):
   .get('/v1/users', (req, res) => route_auth_api(req, res, userService.get_users_api))

@@ -7,23 +7,44 @@ dash.js
 const urlParams = new URLSearchParams(window.location.search)
 const user_id = urlParams.get('id')
 const otp = urlParams.get('otp')
+const client_id = Math.floor((Math.random() * 100) + 1)
+const root = "http://localhost:5000"
 
-register = async _ => {
-    const client_id = Math.floor((Math.random() * 100) + 1)
-
-    let res = await fetch(`/v1/user/${user_id}/heartbeat/${client_id}?otp=${otp}`)
+heartbeat = async _ => {
+    let res = await fetch(`/v1/user/${user_id}/heartbeat/${client_id}?mode=normal&otp=${otp}`)
     let rs = await res.json()
-    document.querySelector('#cid').innerHTML =
+    document.querySelector('#flash').innerHTML =
         `<strong>Connected to Server!<br />Status:</strong>${JSON.stringify(rs)}`
-
-    // const source = new EventSource(`${root}/events?id=${client_id}`)
-    // source.addEventListener('message', message => {
-    //     console.log(`${client_id} | Got`, message);
-    //
-    //     // Display the event data in the `content` div
-    //     document.querySelector('#content').innerHTML = event.data;
-    // })
 }
+
+initialize_pipeline = _ => {
+    const source = new EventSource(`${root}/v1/user/${user_id}/pipeline/${client_id}`)
+        document.querySelector('#flash').innerHTML = `<strong>Connected to Server!</strong>`
+        document.querySelector('#client_id').innerHTML = `<strong>Client Id:</strong> ${client_id}`
+
+    source.addEventListener('flash', message => {
+        console.log(`"flash event" received:`, message)
+        document.querySelector('#flashes_received').innerHTML = event.data
+    })
+
+    // Listen for ping from the Server.  If the server pings, send a pong back.
+    source.addEventListener('ping', message => {
+        console.log(`"ping event" received:`, message)
+        // document.querySelector('#ping').innerHTML = event.data
+
+        heartbeat()
+        console.log("**** pong clientId", client_id)
+    })
+}
+
+// register = async _ => {
+//     const client_id = Math.floor((Math.random() * 100) + 1)
+//
+//     let res = await fetch(`/v1/user/${user_id}/heartbeat/${client_id}?otp=${otp}`)
+//     let rs = await res.json()
+//     document.querySelector('#cid').innerHTML =
+//         `<strong>Connected to Server!<br />Status:</strong>${JSON.stringify(rs)}`
+// }
 
 follow = async (alpha_id) => {
     let res = await fetch(`/v1/user/${user_id}/alpha/${alpha_id}?otp=${otp}`, {
@@ -97,7 +118,8 @@ show_edicts = async _ => {
     .innerHTML = edicts.join("")
 }
 
-show_edictstream = async _ => {
+// Initial load the EdictStream via a GET call
+initialload_edictstream = async _ => {
     let res = await fetch(`/v1/user/${user_id}/edictstream?otp=${otp}`)
     let rs = await res.json()
     // console.log("$$$ rs", rs)
@@ -151,8 +173,8 @@ promulgate = async _ => {
     }
 }
 
-register()
+initialize_pipeline()
 show_others()
 show_alphas()
 show_edicts()
-show_edictstream()
+initialload_edictstream()
