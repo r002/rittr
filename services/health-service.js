@@ -76,6 +76,7 @@ module.exports = {
             mode: req.query.mode || "normal",  // Default to 'normal' mode if unspecified.
             res: res,
             ts: null,
+            status: null,
             dt() {
                 return f_ts(this.ts)
             },
@@ -90,7 +91,8 @@ module.exports = {
                     id: this.id,
                     user_id: this.user_id,
                     mode: this.mode,
-                    dt: this.dt()
+                    dt: this.dt(),
+                    status: this.status
                 }
             }
         }

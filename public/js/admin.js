@@ -39,7 +39,7 @@ source.addEventListener('clientMap', message => {
                 <div class="grid-item">${client.user_id}</div>
                 <div class="grid-item">${client.mode}</div>
                 <div class="grid-item">${client.dt}</div>
-                <div class="grid-item connected">TO DO</div>`)
+                <div class="grid-item ${client.status}">${client.status}</div>`)
     })
     s.push("</div>")
     document.querySelector('#clientMap').innerHTML = s.join("")
