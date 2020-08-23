@@ -33,11 +33,14 @@ module.exports = class Monitor {
         client.status = "connected"
         clients.set(client.to_key(), client)
 
+        this.broadcast_clientmap()
         this.maintain_map()
     }
 
     del_client(client_key) {
         clients.delete(client_key)
+
+        this.broadcast_clientmap()
         this.maintain_map()
     }
 
@@ -94,7 +97,7 @@ module.exports = class Monitor {
         console.log("$$$$$$$$$$ Getting client key:", c.to_key())
         let client = clients.get(c.to_key())
         client.ts = Date.now()
-        this.broadcast_clientmap()
+
         return {
             status: 1,
             dt: client.dt()  // human-readable ts of most recent heartbeat
@@ -110,6 +113,8 @@ module.exports = class Monitor {
         }
     }
 
+    // Note that the timestamps on the clientMap broadcasted to the Admin GUIs will be one REFRESH_INTERVAL
+    // behind the "last heartbeat" timestamps displayed on the Normal GUIs.
     broadcast_clientmap() {
         console.log("******* Connected clients count:", clients.size)
         let arr = Array.from(clients.values()).map(_=>_.to_obj())
@@ -135,7 +140,7 @@ module.exports = class Monitor {
             client.res.write(`event: ping\n` +
                              `data: {"dummy": "dummy"}\n\n`)
         }
-        // this.broadcast_clientmap()  // Not neccessary? 8/20/20
+        this.broadcast_clientmap()
     }
 
     // broadcast(edict) {
