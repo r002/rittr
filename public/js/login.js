@@ -14,13 +14,11 @@ login = async () => {
     // console.log("fetch returned: ", rs)
 
     if(1==rs.status) {
-        document.querySelector('#msg_area')
-        .innerHTML = `Email sent to: <strong>${login_email}</strong>.<br />`
-                      + `Please check your inbox.`
+        document.querySelector('#flash-header')
+        .innerHTML = `Email sent to: <strong>${login_email}</strong>. Please check your inbox.`
     } else {
-        document.querySelector('#msg_area')
-        .innerHTML = `Sorry, no user with this email found:<br />`
-                      + `<strong>${login_email}</strong>`
+        document.querySelector('#flash-header')
+        .innerHTML = `Sorry, no user with this email found: <strong>${login_email}</strong>`
     }
 }
 
@@ -43,7 +41,7 @@ validate_email = _ => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     let passed = re.test(String(email).toLowerCase())
     if (!passed) {
-        document.querySelector('#notice').innerHTML = "❌ Please enter a valid email."
+        document.querySelector('#notice').innerHTML = "❌ Please enter a valid email address."
     } else {
         document.querySelector('#notice').innerHTML = "✔️ Good job! Press enter and please check your inbox for the login email."
     }

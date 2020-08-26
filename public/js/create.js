@@ -21,23 +21,22 @@ create_account = async _ => {
     // console.log(rs)
 
     if(1==rs.status) {
-        document.querySelector('#msg_area_create')
-        .innerHTML = `Email sent to: <strong>${email}</strong>.<br />`
-                      + `Please check your inbox.`
+        document.querySelector('#flash-header')
+        .innerHTML = `Email sent to: <strong>${email}</strong>. Please check your inbox.`
     } else {
-        document.querySelector('#msg_area_create')
-        .innerHTML = `Sorry, an error occurred:<br />`
-                      + `<strong>${rs.errMsg}</strong>`
+        document.querySelector('#flash-header')
+        .innerHTML = `Sorry, an error occurred: <strong>${rs.errMsg}</strong>`
     }
 
 }
 
-const node = document.querySelector('#email')
+// TODO - Perform more field validation (like checking for empty fields) before allowing submission. 8/26/20
+const node = document.querySelector('#sovereignty')
 node.addEventListener("keyup", _ => {
     if (event.key === "Enter") {
         if (validate_email()) {
             // console.log("enter key struck and email valid!!!!")
-            login()
+            create_account()
             document.querySelector('#notice').innerHTML = "📨 Login email sent! Please check your inbox."
         }
     } else {
@@ -51,9 +50,9 @@ validate_email = _ => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     let passed = re.test(String(email).toLowerCase())
     if (!passed) {
-        document.querySelector('#notice').innerHTML = "❌ Please enter a valid email."
+        document.querySelector('#notice').innerHTML = "❌ Please enter a valid email address."
     } else {
-        document.querySelector('#notice').innerHTML = "✔️ Good job! Press enter and please check your inbox for the login email."
+        document.querySelector('#notice').innerHTML = "✔️ Good job! This is a valid email address."
     }
     return passed
 }

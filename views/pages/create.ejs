@@ -8,7 +8,7 @@
 <body>
     <div id="container">
 
-        <div id="header">
+        <div id="flash-header">
             I am the header!!!
         </div>
 
@@ -34,7 +34,12 @@
 
         <div class="modal create-section">
             <div class="upper">
-                <div class="title-bar">Create Account</div>
+                <div class="title-bar">
+                    Create Account
+                    <div class="title-bar-right">
+                        <a href="login">Login</a>
+                    </div>
+                </div>
                 <input type="text" id="email" name="email" placeholder="📧 Email address">
                 <input type="text" id="title" name="title" placeholder="👑 Title (eg. Mayor, Empress, BDFL)">
                 <input type="text" id="name" name="name" placeholder="🤸 Name">
@@ -47,7 +52,7 @@
             </div>
 
             <div class="small-text">
-                <a href="login">Login</a>
+                <a href="javascript:create_account();">Submit</a>
             </div>
         </div>
 

@@ -40,7 +40,7 @@ body {
     align-items: center;
  }
 
- #header {
+ #flash-header {
     /* background: lightblue; 
     color: black; */
     background: #2a353b;
@@ -189,7 +189,7 @@ a:hover {
     text-decoration: none;
 }
 a:active {
-    color: blue;
+    color: hotpink;
 }
 ul.menu {
     list-style-type: none;
@@ -217,13 +217,15 @@ li.menu-item {
     justify-content: space-between;
     background-color: var(--dark-grey);
     color: var(--light-grey);
-    padding: 9px 13px 9px 13px;
+    padding: 9px 11px 8px 13px;
     /* font-weight: bold; */
 }
 
 .title-bar-right {
     align-self: flex-end;
     font-size: 12px;
+    /* background: pink; */
+    /* margin-bottom: -1px; */
     /* padding: 9px 13px 9px 13px; */
     /* font-weight: bold; */
 }

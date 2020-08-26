@@ -21,7 +21,7 @@ $ git diff origin/master..HEAD
 
 $ ls env:  # Show all env vars in PowerShell
 $ $env:PGPASSWORD = 'myPwdSecret'
-$ $env:PGCLIENTENCODING='utf-8'  # So emojis will show in the psql CLI
+$ $env:PGCLIENTENCODING='utf-8'  # So emojis will show in the psql CLI for "select * from edicts;"
 
 $ psql -U rittr rittr_dev
 
