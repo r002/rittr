@@ -1,9 +1,16 @@
-login = async () => {
-    let login_email = document.querySelector('#login_email').value
-    // console.log("#login_email:", login_email)
-    let req = { "email": login_email }
-
-    let res = await fetch(`/v1/otp_token`, {
+create_account = async _ => {
+    let title = document.querySelector('#title').value
+    let name = document.querySelector('#name').value
+    let sovereignty = document.querySelector('#sovereignty').value
+    let email = document.querySelector('#email').value
+    let req = {
+        "title": title,
+        "name": name,
+        "sovereignty": sovereignty,
+        "email": email
+    }
+    // console.log(req)
+    let res = await fetch(`/v1/user`, {
         method: 'POST',
         body: JSON.stringify(req),
         headers: {
@@ -11,20 +18,21 @@ login = async () => {
         }
     })
     let rs = await res.json()
-    // console.log("fetch returned: ", rs)
+    // console.log(rs)
 
     if(1==rs.status) {
-        document.querySelector('#msg_area')
-        .innerHTML = `Email sent to: <strong>${login_email}</strong>.<br />`
+        document.querySelector('#msg_area_create')
+        .innerHTML = `Email sent to: <strong>${email}</strong>.<br />`
                       + `Please check your inbox.`
     } else {
-        document.querySelector('#msg_area')
-        .innerHTML = `Sorry, no user with this email found:<br />`
-                      + `<strong>${login_email}</strong>`
+        document.querySelector('#msg_area_create')
+        .innerHTML = `Sorry, an error occurred:<br />`
+                      + `<strong>${rs.errMsg}</strong>`
     }
+
 }
 
-const node = document.querySelector('#login_email')
+const node = document.querySelector('#email')
 node.addEventListener("keyup", _ => {
     if (event.key === "Enter") {
         if (validate_email()) {
@@ -39,7 +47,7 @@ node.addEventListener("keyup", _ => {
 
 // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
 validate_email = _ => {
-    let email = document.querySelector('#login_email').value
+    let email = document.querySelector('#email').value
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     let passed = re.test(String(email).toLowerCase())
     if (!passed) {
@@ -50,4 +58,4 @@ validate_email = _ => {
     return passed
 }
 
-history.pushState({}, "", "/login")  // Change the url in the address bar.
+history.pushState({}, "", "/create")  // Change the url in the address bar.

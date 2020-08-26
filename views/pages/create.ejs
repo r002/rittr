@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login | Rittr</title>
+  <title>Create Account | Rittr</title>
   <link rel="stylesheet" href="css/login.css">
 </head>
 
@@ -32,24 +32,22 @@
             </div>
         </div> -->
 
-        <div class="modal">
+        <div class="modal create-section">
             <div class="upper">
-                <div class="title-bar">
-                    Login
-                    <div class="title-bar-right">
-                        <a href="create">Create Account</a>
-                    </div>
-                </div>
+                <div class="title-bar">Create Account</div>
+                <input type="text" id="email" name="email" placeholder="📧 Email address">
+                <input type="text" id="title" name="title" placeholder="👑 Title (eg. Mayor, Empress, BDFL)">
+                <input type="text" id="name" name="name" placeholder="🤸 Name">
+                <input type="text" id="sovereignty" name="sovereignty" placeholder="🏁 Sovereignty">
 
 
-                <input class="upper" type="text" id="login_email" name="login_email" placeholder="📧 Enter email here.">
                 <div id="notice" class="notice-text">
                     <!-- ❌✔️📨 Notice text gets injected here. -->
                 </div>
             </div>
 
             <div class="small-text">
-                <a href="#">Send Email</a>
+                <a href="login">Login</a>
             </div>
         </div>
 
@@ -59,5 +57,5 @@
 
     </div>
 </body>
-<script src="js/login.js"></script>
+<script src="js/create.js"></script>
 </html>

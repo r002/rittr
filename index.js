@@ -29,7 +29,9 @@ express()
   .set('view engine', 'ejs')
 
   // Open to everyone:
+  .get('/loginOld', (req, res) => route(pool, req, res, home.showLoginOld))
   .get('/login', (req, res) => route(pool, req, res, home.showLogin))
+  .get('/create', (req, res) => route(pool, req, res, home.createAccount))
 
   // Requires authentication:
   .get('/', (req, res) => route_auth(pool, req, res, home.showDash))

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Old | Rittr</title>
+  <link rel="stylesheet" href="css/login.css">
+  <script src="js/login.js"></script>
+</head>
+
+<body>
+
+<%= rs %><br /><br />
+
+<br /><br />
+
+<h2>Create Account</h2>
+<form id="create_form">
+    <label for="title">Title:</label><br />
+    <input type="text" id="title" name="title" value="Mayor"><br />
+    <label for="name">Name:</label><br />
+    <input type="text" id="name" name="name" value="Dave"><br />
+    <label for="sovereignty">Sovereignty:</label><br />
+    <input type="text" id="sovereignty" name="sovereignty" value="Dave City"><br />
+    <label for="email">Email:</label><br />
+    <input type="text" id="email" name="email" value="dave@example.com"><br /><br />
+</form>
+
+<a href="javascript:create_account();">Create Account</a>
+<br /><br />
+
+<div id="msg_area_create"></div>
+<br /><br />
+<hr />
+
+<h2>Login</h2>
+<form id="login_form">
+    <label for="login_email">Email:</label><br />
+    <input type="text" id="login_email" name="login_email" value="robert@ilope.org"><br /><br />
+</form>
+
+<a href="javascript:login();">Login</a>
+<br /><br />
+
+<div id="msg_area"></div>
+
+</body>
+</html>

@@ -9,10 +9,18 @@
 
 module.exports = {
 
+    createAccount : (pool, req, res) => {
+        res.render('pages/create', {"rs": 123});
+    },
+
     showLogin : (pool, req, res) => {
+        res.render('pages/login', {"rs": 123});
+    },
+
+    showLoginOld : (pool, req, res) => {
         // res.render('pages/landing', {"rs": 123});
         let msg = "Login page for 'Create Account' and 'Login' forms."
-        res.render('pages/login', {"rs": 123});
+        res.render('pages/loginOld', {"rs": 123});
     },
 
     showDash : async (pool, req, res) => {
