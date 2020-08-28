@@ -35,6 +35,7 @@ express()
 
   // Requires authentication:
   .get('/', (req, res) => route_auth(pool, req, res, home.showDash))
+  .get('/home', (req, res) => route_auth(pool, req, res, home.showHome))
   // .get('/admin/users', (req, res) => route_auth(pool, req, res, users.view))
   .get('/times', (req, res) => route_auth(pool, req, res, home.showTimes))
   .get('/admin', (req, res) => route_auth(pool, req, res, home.showAdmin))

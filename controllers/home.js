@@ -23,6 +23,10 @@ module.exports = {
         res.render('pages/loginOld', {"rs": 123});
     },
 
+    showHome : async (pool, req, res) => {
+        res.render('pages/home', req)
+    },
+
     showDash : async (pool, req, res) => {
         // let e1 = new Edict(1, "otp123", "law 1"); e1.id = 10;
         // let e2 = new Edict(1, "otp123", "law 2"); e2.id = 12;
