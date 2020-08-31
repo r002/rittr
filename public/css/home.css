@@ -10,9 +10,164 @@
     margin-right: 20px;
     margin-top: 30px;
     width: 400px;
-    height: 1700px;
+    height: 90vh;
     opacity: 0.8;
     box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.5);
 
     font-size: 17px;
+}
+
+.edict-card {
+    /* position: absolute; */
+    background-color: #2a353b;
+    color: #9c9d9e;
+    /* padding: 5px 20px 20px 20px; */
+    /* padding: 0px 0px 10px 0px; */
+    /* width: 500px; */
+    /* height: 100px; */
+    opacity: 0.8;
+    box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.5);
+    font-size: 17px;
+
+    display: grid;
+    grid-gap: 0px;
+    /* grid-template-columns: 120px  120px  120px; */
+    grid-template-rows: 47px 1fr;
+    grid-template-areas:
+    "edict-title"
+    "edict-content";
+}
+
+.edict-title {
+    grid-area: edict-title;
+    display: grid;
+    grid-gap: 2px;
+    grid-template-columns: 290px 1fr;
+    grid-template-areas:
+    "edict-title-left edict-title-right";
+    /* "edict-datetime edict-datetime"; */
+
+    background-color: var(--dark-grey);
+    /* color: var(--light-grey); */
+    color: white;
+    padding: 9px 11px 8px 13px;
+    font-weight: bold;
+    /* width: 100%; */
+    /* height: 30px; */
+}
+
+.edict-title-left {
+    grid-area: edict-title-left;
+    font-size: 17px;
+    /* background: pink; */
+}
+
+.edict-title-right {
+    grid-area: edict-title-right;
+    text-align: right;
+    font-size: 17px;
+    /* background: pink; */
+    margin-top: -1px;
+}
+
+.edict-datetime {
+    /* grid-area: edict-datetime; */
+    font-size: 13px;
+    opacity: 0.8;
+    /* text-align: right; */
+    /* background: pink; */
+}
+
+.edict-content {
+    grid-area: edict-content;
+    padding: 11px;
+    opacity: 0.8;
+    /* font-size: 18px; */
+    /* background: pink; */
+    height: 100%;
+}
+
+.edict-text {
+    grid-area: edict-content;
+    padding: 11px 11px 20px 11px;
+    opacity: 0.8;
+    /* background: pink; */
+    height: 100%;
+}
+
+.edict-media {
+    grid-area: edict-content;
+    padding: 0;
+    opacity: 0.8;
+    /* background: pink; */
+    height: 300px;
+}
+
+.edict-image {
+    grid-area: edict-content;
+    padding: 0;
+    opacity: 0.8;
+    /* background: pink; */
+    height: 300px;
+}
+
+.image {
+    width: 100%;
+    height: 300px;
+}
+
+/***************************************/
+
+.edicts-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 400px;
+    margin-top: 100px;
+
+    /* width: 1600px; */
+    display: grid;
+    grid-template-columns: repeat(5, 480px);
+    grid-gap: 40px;
+}
+
+.box {
+    background-color: #444;
+    color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 150%;
+}
+  
+.box:nth-child(even) {
+    background-color: #ccc;
+    color: #000;
+}
+
+.order1 {
+    order: 1;
+}
+
+.order2 {
+    order: 2;
+}
+
+.order3 {
+    order: 3;
+}
+
+.order4 {
+    order: 4;
+}
+
+.order5 {
+    order: 5;
+}
+
+.order6 {
+    order: 6;
+}
+
+.order7 {
+    order: 7;
 }
