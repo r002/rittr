@@ -8,7 +8,7 @@ const urlParams = new URLSearchParams(window.location.search)
 const user_id = urlParams.get('id')
 const otp = urlParams.get('otp')
 const client_id = Math.floor((Math.random() * 100) + 1)
-const root = "http://localhost:5000"
+
 
 heartbeat = async _ => {
     let res = await fetch(`/v1/user/${user_id}/heartbeat/${client_id}?mode=normal&otp=${otp}`)
@@ -18,7 +18,7 @@ heartbeat = async _ => {
 }
 
 initialize_pipeline = _ => {
-    const source = new EventSource(`${root}/v1/user/${user_id}/pipeline/${client_id}`)
+    const source = new EventSource(`${ROOT}/v1/user/${user_id}/pipeline/${client_id}`)
         document.querySelector('#flash').innerHTML = `<strong>Connected to Server!</strong>`
         document.querySelector('#client_id').innerHTML = `<strong>Client Id:</strong> ${client_id}`
 

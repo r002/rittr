@@ -10,10 +10,8 @@ const otp = urlParams.get('otp')
 
 const client_id = Math.floor((Math.random() * 100) + 1)
 
-const root = "http://localhost:5000"
-
 // Perform initial registration with the server
-const source = new EventSource(`${root}/v1/user/${user_id}/pipeline/${client_id}?mode=admin`)
+const source = new EventSource(`${ROOT}/v1/user/${user_id}/pipeline/${client_id}?mode=admin`)
 
 source.addEventListener('flash', message => {
     console.log(`"flash event" received:`, message)
