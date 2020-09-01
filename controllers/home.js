@@ -7,14 +7,16 @@
 // const Edict = require('../models/edict')
 // const edictService = require('../services/edict-service')
 
+const VERSION = process.env.VERSION
+
 module.exports = {
 
     createAccount : (pool, req, res) => {
-        res.render('pages/create', {"rs": 123});
+        res.render('pages/create', {"VERSION": VERSION});
     },
 
     showLogin : (pool, req, res) => {
-        res.render('pages/login', {"rs": 123});
+        res.render('pages/login', {"VERSION": VERSION});
     },
 
     showLoginOld : (pool, req, res) => {
@@ -24,7 +26,8 @@ module.exports = {
     },
 
     showHome : async (pool, req, res) => {
-        res.render('pages/home', req)
+        // res.render('pages/home', req)
+        res.render('pages/home', {"VERSION": VERSION})
     },
 
     showDash : async (pool, req, res) => {

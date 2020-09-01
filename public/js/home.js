@@ -31,49 +31,73 @@ let links = [
     },
     {
         id: 2,
-        title: "🏛️ Edict Stream by Politics",
+        title: "🏛️ Edicts by Politics",
         url: "#",
         secure: 0
     },
     {
         id: 3,
-        title: "🎹 Edict Stream by Music",
+        title: "🎹 Edicts by Music",
         url: "#",
         secure: 0
     },
     {
         id: 4,
-        title: "🍿 Edict Stream by Movies",
+        title: "🍿 Edicts by Movies",
         url: "#",
         secure: 0
     },
     {
         id: 4,
-        title: "🏈 Edict Stream by Sports",
+        title: "🏈 Edicts by Sports",
         url: "#",
         secure: 0
     },
     {
         id: 4,
-        title: "🖼️ Edict Stream by Image",
+        title: "🖼️ Edicts by Image",
         url: "#",
         secure: 0
     },
     {
         id: 4,
-        title: "📀 Edict Stream by Video",
+        title: "📀 Edicts by Video",
         url: "#",
         secure: 0
     },
     {
         id: 4,
-        title: "💬 Edict Stream by Commentary",
+        title: "💬 Edicts by Commentary",
         url: "#",
         secure: 0
     },
     {
         id: 4,
         title: "🌐 The Grid Game",
+        url: "#",
+        secure: 0
+    },
+    {
+        id: 4,
+        title: "💚 Best of 2020",
+        url: "#",
+        secure: 0
+    },
+    {
+        id: 4,
+        title: "🧡 Best of 2019",
+        url: "#",
+        secure: 0
+    },
+    {
+        id: 4,
+        title: "💜 Best of 2018",
+        url: "#",
+        secure: 0
+    },
+    {
+        id: 4,
+        title: "💛 Best of 2017",
         url: "#",
         secure: 0
     },

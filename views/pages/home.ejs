@@ -4,16 +4,17 @@
   <title>Home | HEPSYS</title>
   <link rel="stylesheet" href="css/general.css">
   <link rel="stylesheet" href="css/home.css">
+  <script src="js/config.js"></script>
 </head>
 
 <body>
 
-    <div id="main-menu">
+    <nav id="main-menu">
         <div class="title-bar"><a href="javascript:goHome();">Holy Edict Promulgation System</a></div>
         <ul class="menu">
             <div id="menu"></div>
         </ul>
-    </div>
+    </nav>
 
     <!-- <div id="edict-stream">
         <div class="title-bar"><a href="#">📜 Unified Edict Stream</a></div>
@@ -27,10 +28,18 @@
     </div>
 
     <div id="footer">
-        Build 0.0.2 | Tuesday - August 25, 2020
+        <div id="version">
+            <%= VERSION %>
+        </div>
+
+        <div id="connection-details">
+            Connected to server!
+        </div>
     </div>
+
 
 </body>
 
+<script src="js/client.js"></script>
 <script src="js/home.js"></script>
 </html>

@@ -100,6 +100,8 @@ module.exports = class Monitor {
 
         return {
             status: 1,
+            client_id: client.id,
+            user_id: client.user_id,
             dt: client.dt()  // human-readable ts of most recent heartbeat
         }
     }

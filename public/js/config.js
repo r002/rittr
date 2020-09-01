@@ -1,0 +1,1 @@
+const ROOT = "https://rittr.herokuapp.com"     // Heroku
