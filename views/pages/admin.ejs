@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Admin</title>
-  <link rel="stylesheet" href="/css/admin.css">
+    <title>Admin</title>
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/admin.css">
 </head>
 
 <body>
+
+    <div id="flash-header">
+        Welcome home!
+    </div>
+
+    <div id="footer">
+        <div id="version">
+            <%= VERSION %>
+        </div>
+
+        <div id="connection-details">
+            Connected to server!
+        </div>
+    </div>
+
 
 Connection status:
 <div id="cid"></div>
@@ -71,6 +87,7 @@ Broadcast flash message to all clients:<br />
 
 </body>
 
+<script src="/js/client.js"></script>
 <script src="/js/admin.js"></script>
 
 <html>

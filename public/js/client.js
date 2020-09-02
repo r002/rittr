@@ -12,19 +12,24 @@ const urlParams = new URLSearchParams(window.location.search)
 const user_id = urlParams.get('id')
 const otp = urlParams.get('otp')
 const client_id = Math.floor((Math.random() * 100) + 1)
+var source = null
 
-heartbeat = async _ => {
-    let res = await fetch(`${ROOT}/v1/user/${user_id}/heartbeat/${client_id}?mode=normal&otp=${otp}`)
+heartbeat = async (mode) => {
+    let res = await fetch(`${ROOT}/v1/user/${user_id}/heartbeat/${client_id}?mode=${mode}&otp=${otp}`)
     let rs = await res.json()
-    document.querySelector('#flash-header').innerHTML =
-        `<strong>Heartbeat sent to Server! Status:</strong> ${JSON.stringify(rs)}`
+    // document.querySelector('#flash-header').innerHTML =
+    //     `<strong>Heartbeat sent to Server! Status:</strong> ${JSON.stringify(rs)}`
+
+    document.querySelector('#connection-details').innerHTML =
+        `Last Heartbeat: <span class='bold'>${rs.dt}</span> | Client Id: <span class='bold'>${client_id}</span> | ` +
+        `User Id: <span class='bold'>${user_id}</span> | Connection Status: 🟢`
 }
 
-initialize_pipeline = _ => {
-    const source = new EventSource(`${ROOT}/v1/user/${user_id}/pipeline/${client_id}`)
-        document.querySelector('#flash-header').innerHTML = 
-            `<strong>Connected to Server! Client Id: </strong> ${client_id}`
-        // document.querySelector('#client_id').innerHTML = `<strong>Client Id:</strong> ${client_id}`
+initialize_pipeline = mode => {
+    source = new EventSource(`${ROOT}/v1/user/${user_id}/pipeline/${client_id}?mode=${mode}`)
+    document.querySelector('#flash-header').innerHTML = 
+        `<strong>Connected to Server! Client Id: </strong> ${client_id}`
+    // document.querySelector('#client_id').innerHTML = `<strong>Client Id:</strong> ${client_id}`
 
     source.addEventListener('flash', message => {
         console.log(`"flash event" received:`, message)
@@ -36,9 +41,7 @@ initialize_pipeline = _ => {
         console.log(`"ping event" received:`, message)
         // document.querySelector('#ping').innerHTML = event.data
 
-        heartbeat()
+        heartbeat(mode)
         console.log("**** pong clientId", client_id)
     })
 }
-
-initialize_pipeline()

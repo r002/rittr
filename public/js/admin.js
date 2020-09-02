@@ -1,23 +1,12 @@
 /*
 ========
 admin.js
+
+Backs 'admin.ejs'.
 ========
 */
 
-const ROOT = window.location.origin
-const urlParams = new URLSearchParams(window.location.search)
-const user_id = urlParams.get('id')
-const otp = urlParams.get('otp')
-
-const client_id = Math.floor((Math.random() * 100) + 1)
-
-// Perform initial registration with the server
-const source = new EventSource(`${ROOT}/v1/user/${user_id}/pipeline/${client_id}?mode=admin`)
-
-source.addEventListener('flash', message => {
-    console.log(`"flash event" received:`, message)
-    document.querySelector('#flashes_received').innerHTML = event.data
-})
+initialize_pipeline("admin")
 
 source.addEventListener('clientMap', message => {
     console.log(`"clientMap event" received:`, message)
@@ -83,28 +72,8 @@ broadcast_flash = async _ => {
 }
 
 
-heartbeat = async _ => {
-    let res = await fetch(`/v1/user/${user_id}/heartbeat/${client_id}?mode=admin&otp=${otp}`)
-    let rs = await res.json()
-    document.querySelector('#cid').innerHTML =
-        `<strong>Connected to Server!<br />Status:</strong>${JSON.stringify(rs)}`
-}
-
-// Listen for ping from the Server.
-// If the server pings, send a pong back.
-source.addEventListener('ping', message => {
-    console.log(`"ping event" received:`, message)
-    document.querySelector('#ping').innerHTML = event.data
-
-    heartbeat()
-    console.log("**** pong clientId", client_id)
-})
-
 // Listen for edicts from the Server.
 source.addEventListener('edict', message => {
     console.log(`"edict event" received:`, message)
     document.querySelector('#edicts').innerHTML = event.data
 })
-
-// // Perform initial registration with the server
-// heartbeat()

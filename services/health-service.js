@@ -8,7 +8,8 @@ const Monitor = require('../models/monitor')
 
 f_ts = (ts) => {
     let d = (new Date(ts)).toString()  // => 'Tue Aug 18 2020 03:17:16 GMT-0400 (Eastern Daylight Time)'
-    return d.split(' (')[0]            // => 'Tue Aug 18 2020 03:17:16 GMT-0400'
+    // return d.split(' (')[0]         // => 'Tue Aug 18 2020 03:17:16 GMT-0400'
+    return d.split(' GMT')[0]          // => 'Tue Aug 18 2020 03:17:16'
 }
 
 module.exports = {

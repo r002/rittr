@@ -40,7 +40,7 @@ module.exports = {
     },
 
     showAdmin : async (pool, req, res) => {
-        res.render('pages/admin', req)
+        res.render('pages/admin', {"VERSION": VERSION})
     },
 
     showTimes : (pool, req, res) => {

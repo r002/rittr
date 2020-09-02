@@ -1,3 +1,13 @@
+/*
+========
+home.js
+
+Backs 'home.ejs'.
+========
+*/
+
+initialize_pipeline("normal")
+
 let links = [
     {
         id: 0,

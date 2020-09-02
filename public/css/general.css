@@ -211,3 +211,10 @@ ul.menu {
 
     font-size: 17px;
 }
+
+/**********************************************/
+
+.bold {
+    color: black;
+    font-weight: bold;
+}
