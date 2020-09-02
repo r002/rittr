@@ -7,6 +7,7 @@ SSE communication. Will also respond to server requests for heartbeats.
 ========
 */
 
+const ROOT = window.location.origin
 const urlParams = new URLSearchParams(window.location.search)
 const user_id = urlParams.get('id')
 const otp = urlParams.get('otp')
