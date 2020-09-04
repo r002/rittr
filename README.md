@@ -5,6 +5,7 @@
 June 27, 2020 - Saturday: Test 'Continuous Delivery' with GitHub Deploys integration.
 
 ```sh
+$ heroku apps:info
 $ heroku ps:scale web=0
 $ heroku ps:scale web=1
 
