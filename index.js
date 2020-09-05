@@ -39,11 +39,9 @@ express()
   // .get('/admin/users', (req, res) => route_auth(pool, req, res, users.view))
   .get('/times', (req, res) => route_auth(pool, req, res, home.showTimes))
   .get('/admin', (req, res) => route_auth(pool, req, res, home.showAdmin))
-  // .get('/events', (req, res) => publisher.launchSSE(req, res))
-  // .get('/sub', (req, res) => res.render('pages/sub'))
-  // .get('/unsub', (req, res) => publisher.unsub(req, res))
+  
 
-  // JSON REST API POST:
+  // OPEN REST API POST:
   .post('/v1/otp_token', (req, res) => route_api(req, res, authService.email_otp_api))
   .post('/v1/user', (req, res) => route_api(req, res, userService.create_user_api))
 
@@ -64,8 +62,9 @@ express()
   .get('/v1/user/:uid/heartbeat/:client_id', (req, res) => route_auth_api(req, res, healthService.heartbeat_api))
 
   // Admin API endpoints
-  .post('/v1/admin/:uid/flash_broadcast', (req, res) => route_auth_api(req, res, healthService.broadcast_flash))
   .get('/v1/admin/:uid/clientmap_refresh', (req, res) => route_auth_api(req, res, healthService.clientmap_refresh))
+  .post('/v1/admin/:uid/flash_broadcast', (req, res) => route_auth_api(req, res, healthService.broadcast_flash))
+  .post('/v1/admin/:uid/toggle_auto_prune', (req, res) => route_auth_api(req, res, healthService.toggle_auto_prune))  // TODO
 
   // Currently unused by GUI (deprecated):
   .get('/v1/users', (req, res) => route_auth_api(req, res, userService.get_users_api))

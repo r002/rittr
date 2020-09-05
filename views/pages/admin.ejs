@@ -4,6 +4,7 @@
     <title>Admin</title>
     <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/toggle-button.css">
 </head>
 
 <body>
@@ -36,7 +37,18 @@ Ping status:
 <br /><br />
 
 clientMap:
-<div id="clientMap"></div>
+<div id="clientMap"></div><br />
+
+<h1>Auto-Prune-Zombie Clients:</h1>
+(Enabling this will automatically heartbeat ping all connected endpoints periodically.<br />
+Any clients that don't pong back will be marked stale and pruned from the server-side client map.)<br />
+<label class="switch">
+    <input type="checkbox" id="toggleButton" checked onclick="javascript:toggle()"; />
+    <div class="slider round"></div>
+</label>
+<br />
+
+<textarea rows="14" cols="100" id="console"></textarea>
 <br /><br />
 
 <!-- <div class="grid-container">
@@ -70,6 +82,8 @@ clientMap:
 
 </div>
 <br /><br /> -->
+
+<hr />
 
 EdictStream:
 <div id="edicts"></div>

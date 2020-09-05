@@ -8,8 +8,28 @@ Backs 'admin.ejs'.
 
 initialize_pipeline("admin")
 
+let log_id = 1
+let deq = []
+
+add_log = (log_item) => {
+    deq.push(log_item)
+    if (deq.length>7) {  // Only keep the seven most recent log items
+        deq.shift()
+    }
+    document.querySelector('#console').innerHTML = deq.join("\n\n")
+    // Keep the textarea console scrolled to bottom:
+    document.querySelector('#console').scrollTop = document.querySelector('#console').scrollHeight 
+}
+
 source.addEventListener('clientMap', message => {
-    console.log(`"clientMap event" received:`, message)
+
+    // console.log(`"clientMap event" received:`, message)
+    let dt = new Date()
+    let log_item = `${log_id++}. ${dt}: \n` +
+            `\t "clientMap event" received: \n` +
+            `\t ${message.data}`
+    add_log(log_item)
+
     let clientMap = JSON.parse(event.data)
     let s = []
     let i = 1
@@ -37,6 +57,24 @@ request_client_heartbeats = async _ => {
     let res = await fetch(`/v1/admin/${user_id}/clientmap_refresh?otp=${otp}`)
     let rs = await res.json()
     console.log("request_client_heartbeats: ", rs)
+}
+
+toggle_auto_prune = async (bool) => {
+    let command = {
+        "enable": bool
+    }
+
+    let res = await fetch(`/v1/admin/${user_id}/toggle_auto_prune?otp=${otp}`, {
+        method: 'POST',
+        body: JSON.stringify(command),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    })
+    let rs = await res.json()
+
+    add_log(`>> auto-prune-loop-enabled: ${rs.enabled}`)
+    console.log(">> auto-prune-loop-status: ", rs)
 }
 
 broadcast_flash = async _ => {
@@ -77,3 +115,11 @@ source.addEventListener('edict', message => {
     console.log(`"edict event" received:`, message)
     document.querySelector('#edicts').innerHTML = event.data
 })
+
+////////////////////////////////////////////////////
+
+toggle = _ => {
+    let checked = document.querySelector('#toggleButton').checked
+    console.log("toggle state: ", checked)
+    toggle_auto_prune(checked)
+}

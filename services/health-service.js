@@ -37,8 +37,21 @@ module.exports = {
         res.json(rs)
     },
 
+    toggle_auto_prune : (req, res) => {
+        console.log("*****toggle_auto_prune command received!")
+
+        m = Monitor.get_instance()
+        let enabled = m.toggle_auto_prune()
+
+        let rs = { 
+            "status": 1, 
+            "enabled": enabled
+        }
+        res.json(rs)
+    },
+
     clientmap_refresh : (req, res) => {
-        console.log("*****clientmap_refresh received!")
+        console.log("*****clientmap_refresh command received!")
         // let req_obj = JSON.parse(req.body)
         // let flash_broadcast = req.body.flash_broadcast
 

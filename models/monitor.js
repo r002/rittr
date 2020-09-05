@@ -44,14 +44,32 @@ module.exports = class Monitor {
         this.maintain_map()
     }
 
-    maintain_map() {
-        
+    // Toggle the "maintain_map() loop on and off."
+    toggle_auto_prune()
+    {
+        if(!loopRunning) {
+            this.maintain_map()
+        } else {
+            this.disable_auto_prune()
+        }
+        return loopRunning
+    }
+
+    // Note: Only allow the toggle on the admin GUI to be enabled
+    // when clients.size>0.  Otherise, the toggle should be off and disabled.
+    disable_auto_prune()
+    {
+        console.log(">>>>> disable maintainLoop!")
+        clearInterval(evictionLoop)
+        clearInterval(refreshLoop)
+        loopRunning = false
+        this.broadcast_clientmap()
+    }
+
+    maintain_map()
+    {
         if (clients.size==0) {
-            console.log(">>>>> disable maintainLoop!")
-            clearInterval(evictionLoop)
-            clearInterval(refreshLoop)
-            loopRunning = false
-            this.broadcast_clientmap()
+            this.disable_auto_prune()
         } else if (clients.size>0 && !loopRunning) {
             // This block will only run ONCE the very first time maintainLoop fires.
             console.log(">>>>> start maintainLoop! Broadcast one-off clientmap!")
@@ -137,6 +155,8 @@ module.exports = class Monitor {
         {
             if ((now-client.ts)>(REFRESH_INTERVAL+5000)) {  // 15000
                 client.status = "stale"
+            } else {
+                client.status = "connected"
             }
             // Ping the client for a pong.
             client.res.write(`event: ping\n` +
