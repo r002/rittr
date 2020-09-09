@@ -15,6 +15,7 @@ let clients = new Map()  // Maps client_id => client objects
 let loopRunning = false
 let evictionLoop = null
 let refreshLoop = null
+let loopEnabled = true  // Controls whether the 'auto-prune-zombies' loop is running.
 const REFRESH_INTERVAL = Number(process.env.REFRESH_INTERVAL)
 const EVICTION_INTERVAL = Number(process.env.EVICTION_INTERVAL)
 
@@ -47,6 +48,7 @@ module.exports = class Monitor {
     // Toggle the "maintain_map() loop on and off."
     toggle_auto_prune()
     {
+        loopEnabled = !loopEnabled
         if(!loopRunning) {
             this.maintain_map()
         } else {
@@ -68,26 +70,31 @@ module.exports = class Monitor {
 
     maintain_map()
     {
-        if (clients.size==0) {
-            this.disable_auto_prune()
-        } else if (clients.size>0 && !loopRunning) {
-            // This block will only run ONCE the very first time maintainLoop fires.
-            console.log(">>>>> start maintainLoop! Broadcast one-off clientmap!")
-            this.broadcast_clientmap()
-            loopRunning = true
-            evictionLoop = setInterval( _ => {
-                console.log(">>>> fire evictionLoop!", Date.now())
-                this.evict_stale_clients()
-                }, EVICTION_INTERVAL)  // 25000
+        if (loopEnabled)
+        {
+            if (clients.size==0) {
+                this.disable_auto_prune()
+            } else if (clients.size>0 && !loopRunning) {
+                // This block will only run ONCE the very first time maintainLoop fires.
+                console.log(">>>>> start maintainLoop! Broadcast one-off clientmap!")
+                this.broadcast_clientmap()
+                loopRunning = true
+                evictionLoop = setInterval( _ => {
+                    console.log(">>>> fire evictionLoop!", Date.now())
+                    this.evict_stale_clients()
+                    }, EVICTION_INTERVAL)  // 25000
 
-            refreshLoop = setInterval( _ => {
-                console.log(">>>> fire refreshLoop!", Date.now())
-                this.refresh_clientmap()
-                }, REFRESH_INTERVAL)  // 10000
+                refreshLoop = setInterval( _ => {
+                    console.log(">>>> fire refreshLoop!", Date.now())
+                    this.refresh_clientmap()
+                    }, REFRESH_INTERVAL)  // 10000
 
+            } else {
+                // This block fires if the Admin GUI is reloaded after already being initialized.
+                console.log(">>>>> maintainLoop already running. do nothing.")
+            }
         } else {
-            // This block fires if the Admin GUI is reloaded after already being initialized.
-            console.log(">>>>> maintainLoop already running. do nothing.")
+            console.log(">>>>> loopEnabled is not toggled! do nothing.")
         }
     }
 
