@@ -12,7 +12,7 @@ const authService = require('../services/auth-service')
 
 promulgate = async (edict) => {
     let rs = { "status": 0 }
-    let query = 'INSERT INTO edicts (user_id, otp_id, law) VALUES ($1, $2, $3) ' +
+    let query = 'INSERT INTO edicts (user_id, otp_id, content) VALUES ($1, $2, $3) ' +
                 'RETURNING *'
     let db_rs = await db.query(query, [edict.user_id, auth_rs.otp_id, edict.law.trim()])
     // console.log("%%% db_rs", db_rs)
@@ -29,9 +29,12 @@ get_edicts = async (user_id) => {
 }
 
 get_edictstream = async (user_id) => {
-    let rs = await db.query('SELECT e.id, e.user_id, u.name, u.sovereignty, u.avatar, e.law, e.ref, e.created_on FROM edicts AS e ' +
-                            'INNER JOIN users AS u ON e.user_id=u.id WHERE user_id IN ' +
-                            '(SELECT a.alpha_id FROM alphas AS a WHERE a.user_id=$1) ' +
+    let rs = await db.query('SELECT e.id, e.user_id, u.name, u.sovereignty, u.avatar, e.content, ' +
+                            'ec.category, em.medium, e.ref, e.created_on FROM edicts AS e ' +
+                            'INNER JOIN users AS u ON e.user_id=u.id ' +
+                            'INNER JOIN edict_categories AS ec ON e.category_id=ec.id ' +
+                            'INNER JOIN edict_mediums AS em ON e.medium_id=em.id ' +
+                            'WHERE user_id IN (SELECT a.alpha_id FROM alphas AS a WHERE a.user_id=$1) ' +
                             'ORDER BY e.created_on DESC', [user_id])
     return rs.payload
 }
