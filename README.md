@@ -29,9 +29,8 @@ $ psql -U rittr rittr_dev
 # Load db from seed:
 $ cmd /c 'psql -U rittr rittr_dev < db/seed.sql'
 
-# How to dump/load to/from psql:
+# Dump to seed from db:
 $ pg_dump -U rittr rittr_dev > snapshot.sql
-$ cmd /c 'psql -U rittr rittr_dev < snapshot.sql'
 
 $ npm install node-fetch --save-dev
 

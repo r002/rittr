@@ -58,5 +58,9 @@ initialize_pipeline = mode => {
         document.querySelector('#connection-details').innerHTML =
         `Last Heartbeat: <span class='bold'>${hb_rs.dt}</span> | Client Id: <span class='bold'>${client_id}</span> | ` +
         `User Id: <span class='bold'>${user_id}</span> | Initializing Connection: ⌛`
+
+        // Send ONE heartbeat back to the server to confirm that client has successfully registered.
+        heartbeat(mode)
+        console.log(">> Initial client registration succeeded! clientId: ", client_id)
     }
 }

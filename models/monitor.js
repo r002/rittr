@@ -15,7 +15,7 @@ let clients = new Map()  // Maps client_id => client objects
 let loopRunning = false
 let evictionLoop = null
 let refreshLoop = null
-let loopEnabled = true  // Controls whether the 'auto-prune-zombies' loop is running.
+let loopEnabled = false  // Controls whether the 'auto-prune-zombies' loop is running.
 const REFRESH_INTERVAL = Number(process.env.REFRESH_INTERVAL)
 const EVICTION_INTERVAL = Number(process.env.EVICTION_INTERVAL)
 

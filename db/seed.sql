@@ -286,7 +286,7 @@ INSERT INTO edicts (user_id, otp_id, content, category_id, medium_id, ref, creat
     1,
     1,
     'https://twitter.com/JoeBiden/status/1289712264468193280',
-    '2020-06-15 9:56:00'
+    '2020-07-28 9:56:00'
 );
 
 INSERT INTO edicts (user_id, otp_id, content, category_id, medium_id, ref, created_on) VALUES (
@@ -336,7 +336,7 @@ INSERT INTO edicts (user_id, otp_id, content, category_id, medium_id, ref, creat
     1,
     1,
     'https://twitter.com/realDonaldTrump/status/1289741750680993794',
-    '2020-08-01 9:56:00'
+    '2020-07-31 9:56:00'
 );
 
 INSERT INTO edicts (user_id, otp_id, content, category_id, medium_id, ref, created_on) VALUES (
@@ -356,7 +356,7 @@ INSERT INTO edicts (user_id, otp_id, content, category_id, medium_id, ref, creat
     2,
     2,
     'https://youtu.be/8xg3vE8Ie_E',
-    '2020-07-30 16:47:00'
+    '2020-09-01 16:47:00'
 );
 
 INSERT INTO edicts (user_id, otp_id, content, category_id, medium_id, ref, created_on) VALUES (
@@ -366,7 +366,7 @@ INSERT INTO edicts (user_id, otp_id, content, category_id, medium_id, ref, creat
     2,
     2,
     'https://youtu.be/fWNaR-rxAic',
-    '2020-09-01 9:56:00'
+    '2020-07-22 9:56:00'
 );
 
 INSERT INTO edicts (user_id, otp_id, content, category_id, medium_id, ref, created_on) VALUES (
@@ -436,7 +436,7 @@ INSERT INTO edicts (user_id, otp_id, content, category_id, medium_id, ref, creat
     2,
     3,
     'https://twitter.com/aaron_dessner/status/1288218664496508928',
-    '2020-07-31 9:56:00'
+    '2020-08-01 9:56:00'
 );
 
 INSERT INTO edicts (user_id, otp_id, content, category_id, medium_id, ref, created_on) VALUES (
