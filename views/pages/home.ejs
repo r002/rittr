@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Home | HEPSYS</title>
+  <title>Home | RITTR</title>
   <link rel="stylesheet" href="/css/general.css">
   <link rel="stylesheet" href="/css/home.css">
 </head>
 
 <body>
+
+    <div id="flash-header">
+        Welcome home!
+    </div>
 
     <nav id="main-menu">
         <div class="title-bar"><a href="javascript:goHome();">Holy Edict Promulgation System</a></div>
@@ -19,12 +23,25 @@
         <div class="title-bar"><a href="#">📜 Unified Edict Stream</a></div>
     </div> -->
 
+    <div class="window" id="promulgation-box">
+        <div class="title-bar">
+            📢 Promulgate New Edict
+            <div class="title-bar-right">
+                <a href="javascript:close_window('promulgation-box');">✖️</a>
+            </div>
+        </div>
+        
+        <div id="promulgation-content">
+            <textarea id="edict-content">Hear, hear-- I decree my first edict!</textarea>
+            <br /><br />
+            <a href="javascript:promulgate();">Promulgate!</a>
+        </div>
+    </div>
+
+    <div id="bg-fade">
+    </div>
 
     <div id="edicts"></div>
-    
-    <div id="flash-header">
-        Welcome home!
-    </div>
 
     <div id="footer">
         <div id="version">

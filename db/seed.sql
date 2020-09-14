@@ -37,7 +37,7 @@ INSERT INTO users (name, email, sovereignty, avatar) VALUES (
 );
 
 INSERT INTO users (name, email, sovereignty, avatar) VALUES (
-    'Obama',
+    '🅾️ Obama',
     'obama@example.com',
     'Obamatown',
     'obama.jpg'

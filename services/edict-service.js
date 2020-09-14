@@ -14,7 +14,7 @@ promulgate = async (edict) => {
     let rs = { "status": 0 }
     let query = 'INSERT INTO edicts (user_id, otp_id, content) VALUES ($1, $2, $3) ' +
                 'RETURNING *'
-    let db_rs = await db.query(query, [edict.user_id, auth_rs.otp_id, edict.law.trim()])
+    let db_rs = await db.query(query, [edict.user_id, auth_rs.otp_id, edict.content.trim()])
     // console.log("%%% db_rs", db_rs)
     rs.status = db_rs.status
     return rs

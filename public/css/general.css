@@ -40,6 +40,7 @@ body {
  }
 
  #flash-header {
+    z-index: 99;
     /* background: lightblue; 
     color: black; */
     background: #2a353b;
@@ -150,6 +151,7 @@ input[type=text] {
 }
 
 #footer {
+    z-index: 99;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -198,6 +200,8 @@ ul.menu {
 }
 
 #main-menu {
+    z-index: 99;
+    position: fixed;
     background-color: #2a353b;
     color: #9c9d9e;
     /* padding: 5px 20px 20px 20px; */

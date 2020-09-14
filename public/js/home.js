@@ -8,119 +8,167 @@ Backs 'home.ejs'.
 
 initialize_pipeline("normal")
 
+/////////////////////////////////////////////////////////////////////////////
+
+promulgate = async _ => {
+    let content = document.querySelector('#edict-content').value
+    // console.log("#edict-content:", edict-content)
+
+    let req = {
+        "user_id": user_id,
+        "otp": otp,
+        "content": content
+    }
+
+    let res = await fetch(`/v1/user/${user_id}/edict?otp=${otp}`, {
+        method: 'POST',
+        body: JSON.stringify(req),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8'
+        }
+    })
+    let rs = await res.json()
+    // console.log("fetch returned: ", rs)
+
+    if(1==rs.status) {
+        document.querySelector('#flash-header')
+        .innerHTML = `<strong>Edict promulgated! Good job!</strong>`
+        // show_edicts()  // Refresh edicts list on 'dash' view.
+    } else {
+        document.querySelector('#flash-header')
+        .innerHTML = `Error occurred: <strong>${rs.errMsg}</strong>`
+    }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+// execute = (command, window_id) => {
+//     command(window_id)
+// }
+
+show_window = window_id => {
+    document.querySelector(`#${window_id}`).setAttribute('style','display: block');
+    document.querySelector(`#bg-fade`).setAttribute('style','display: block');
+}
+
+close_window = window_id => {
+    document.querySelector(`#${window_id}`).setAttribute('style','display: none');
+    document.querySelector(`#bg-fade`).setAttribute('style','display: none');
+}
+
 let links = [
     {
-        id: 0,
+        id: "promulgation-box",
         title: "📢 Promulgate New Edict",
-        url: "#",
+        command: "show_window",
         secure: 0
     },
     {
         id: 0,
         title: "👪 Your Citizens",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 0,
         title: "👑 Your Leaders",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 0,
         title: "📜 Unified Edict Stream",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 1,
         title: "🚀 Personal Edict Stream",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 2,
         title: "🏛️ Edicts by Politics",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 3,
         title: "🎹 Edicts by Music",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 4,
         title: "🍿 Edicts by Movies",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 4,
         title: "🏈 Edicts by Sports",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 4,
         title: "🖼️ Edicts by Image",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 4,
         title: "📀 Edicts by Video",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 4,
         title: "💬 Edicts by Commentary",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 4,
         title: "🌐 The Grid Game",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 4,
         title: "💚 Best of 2020",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 4,
         title: "🧡 Best of 2019",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 4,
         title: "💜 Best of 2018",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 4,
         title: "💛 Best of 2017",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 4,
         title: "⚙️ Administration",
-        url: "#",
+        command: "#",
         secure: 0
     },
     {
         id: 4,
         title: "🐙 About",
-        url: "#",
+        command: "#",
         secure: 0
     }
 ]
@@ -128,8 +176,9 @@ let links = [
 let menu = []
 
 links.forEach( link => {
-    menu.push(`<li class="menu-item"><a href="javascript:show('${link.url}', 
-    ${link.id}, ${link.secure});">${link.title}</a></li>`)
+    menu.push(`<li class="menu-item">
+               <a href="javascript:${link.command}('${link.id}');">
+               ${link.title}</a></li>`)
 })
 
 document.querySelector('#menu').innerHTML = menu.join("")
@@ -465,7 +514,7 @@ initialload_edictstream = async _ => {
             <div class="edict-card">
                 <div class="edict-title">
                     <div class="edict-title-left">
-                        ${edict.name} &nbsp; <a href="#">${edict.sovereignty}</a>
+                        ${edict.name} &nbsp; <a href="#">@${edict.sovereignty}</a>
                     </div>
                     <div class="edict-title-right">
                         <span class="edict-datetime">
@@ -484,4 +533,11 @@ initialload_edictstream = async _ => {
     document.querySelector('#edicts').innerHTML = s
 }
 
+///////////////////////////////////////////////////////////
+
 initialload_edictstream()
+
+
+// Temp dev
+
+show_window("promulgation-box")

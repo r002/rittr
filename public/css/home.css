@@ -132,6 +132,80 @@
     grid-gap: 40px;
 }
 
+/***************************************/
+
+#bg-fade {
+    z-index: 98;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.8;
+}
+
+.window {
+    display: none;
+    background: #2a353b;
+    color: #9c9d9e;
+
+    /* transition: opacity 2s; */
+
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    width: 600px;
+    height: 500px;
+
+    left: 50%;
+    margin-left: -300px;
+    margin-top: 200px;
+    
+    /* padding: 5px 0 0 0; */
+    text-align: center;
+    font-size: 15px;
+
+    opacity: 0.8;
+    box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.5);
+
+    /* box-sizing: content-box; */
+}
+
+.box-title {
+    background-color: var(--dark-grey);
+    /* color: var(--light-grey); */
+    color: white;
+    padding: 9px 11px 8px 13px;
+    font-weight: bold;
+    /* width: 100%; */
+    /* height: 30px; */
+    text-align: left;
+}
+
+#promulgation-content {
+    padding: 10px;
+}
+
+textarea {
+    padding: 10px;
+    /* margin: 20px; */
+    /* width: 340px; */
+    width: 100%;
+    height: 300px;
+    position: relative;
+    left: 0;
+    outline: none;
+    border: 1px solid #cdcdcd;
+    border-color: rgba(0, 0, 0, .15);
+    background: gainsboro;
+    font-size: 16px;
+    color: black;
+
+    box-sizing: border-box;
+}
+
 /* .box {
     background-color: #444;
     color: #fff;
