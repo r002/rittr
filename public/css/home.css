@@ -72,8 +72,12 @@
     opacity: 0.8;
     /* background: pink; */
     /* height: 100%; */
-    height: 285px;
     box-sizing: border-box;
+}
+
+/* Any div with this class is forced to fixed card height. */
+.edict-grid-card {
+    height: 285px;
 }
 
 .edict-media {
@@ -115,10 +119,15 @@
 
 /***************************************/
 
+.overlay {
+    z-index: 99;
+    position: fixed;
+    display: none;
+}
 
 #bg-fade {
-    z-index: -1;
-    /* display: none; */
+    z-index: 1;
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -135,7 +144,6 @@
 
     /* transition: opacity 2s; */
 
-    z-index: -1;
     position: fixed;
     top: 0;
     width: 600px;
@@ -159,7 +167,6 @@
 #personal-edicts-box {
     display: flex;
     flex-flow: column;
-    z-index: -1;
     position: fixed;
     background-color: rgba(255, 255, 255, 0);
     color: #9c9d9e;

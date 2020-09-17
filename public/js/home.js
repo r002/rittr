@@ -36,7 +36,7 @@ promulgate = async _ => {
     if(1==rs.status) {
         document.querySelector('#flash-header')
         .innerHTML = `<strong>Edict promulgated! Good job!</strong>`
-        // show_edicts()  // Refresh edicts list on 'dash' view.
+        get_personal_edicts()  // Refresh personal edicts on RHS sidebar.
     } else {
         document.querySelector('#flash-header')
         .innerHTML = `Error occurred: <strong>${rs.errMsg}</strong>`
@@ -49,7 +49,7 @@ let links = [
     {
         id: "promulgation-box",
         title: "📢 Promulgate New Edict",
-        command: "show_scene(scenes[0])",
+        command: "show_scene(scenes.promulgation_scene)",
         secure: 0
     },
     {
@@ -244,7 +244,7 @@ initialload_edictstream = async _ => {
                         &nbsp;${category_emoji(edict.category)}${media_emoji(edict.medium)}
                     </div>
                 </div>
-                <div class="edict-${edict.medium}">
+                <div class="edict-${edict.medium} edict-grid-card">
                     ${render_content(edict.medium, edict.content)}
                 </div>
             </div>`)
@@ -295,23 +295,17 @@ initialload_edictstream()
 //     command(window_id)
 // }
 
-let scenes = [
-    {
+let scenes = {
+    promulgation_scene: {
         title: "promulgation_scene",
         windows: ["promulgation-box", "personal-edicts-box"]
     }
-]
+}
 
 show_scene = scene => {
-    scene.windows.forEach(window_id => {
-        document.querySelector(`#${window_id}`).setAttribute('style','z-index: 99')
-        // document.querySelector(`#${window_id}`).setAttribute('style','opacity: 0.8')
-    })
-    document.querySelector(`#bg-fade`).setAttribute('style','z-index: 98')
-    // document.querySelector(`#bg-fade`).setAttribute('style','opacity: 0.8')
-
-    // console.log("scene", scene)
-
+    document.querySelector(`#bg-fade`).setAttribute('style', 'display: block')
+    document.querySelector(`#${scene.title}`).setAttribute('style', 'display: block')
+    
     switch(scene.title) {
         case "promulgation_scene":
             get_personal_edicts()
@@ -320,14 +314,9 @@ show_scene = scene => {
 }
 
 close_scene = scene => {
-    scene.windows.forEach(window_id => {
-        document.querySelector(`#${window_id}`).setAttribute('style','z-index: -1')
-        // document.querySelector(`#${window_id}`).setAttribute('style','opacity: 0')
-    })
-    document.querySelector(`#bg-fade`).setAttribute('style','z-index: -1');
-    // document.querySelector(`#bg-fade`).setAttribute('style','opacity: 0')
+    document.querySelector(`#bg-fade`).setAttribute('style', 'display: none')
+    document.querySelector(`#${scene.title}`).setAttribute('style', 'display: none')
 }
 
-
 // Temp dev
-// show_scene(scenes[0])
+// show_scene(scenes.promulgation_scene)

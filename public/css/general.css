@@ -18,6 +18,7 @@ body {
     padding: 0;
     /* padding-left: 15px; */
     height: 100%;
+    z-index: 1;
 }
 
 #container {

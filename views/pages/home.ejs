@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Home | RITTR</title>
+  <title>Home | RITTR22</title>
   <link rel="stylesheet" href="/css/general.css">
   <link rel="stylesheet" href="/css/home.css">
 </head>
@@ -19,26 +19,27 @@
         </ul>
     </nav>
 
-    <div id="personal-edicts-box">
-    </div>
+    <div class="overlay" id="promulgation_scene">
+        <div id="personal-edicts-box">
+        </div>
 
-    <div class="window" id="promulgation-box">
-        <div class="title-bar">
-            📢 Promulgate New Edict
-            <div class="title-bar-right">
-                <a href="javascript:close_scene(scenes[0]);">✖️</a>
+        <div class="window" id="promulgation-box">
+            <div class="title-bar">
+                📢 Promulgate New Edict
+                <div class="title-bar-right">
+                    <a href="javascript:close_scene(scenes.promulgation_scene);">✖️</a>
+                </div>
+            </div>
+            
+            <div id="promulgation-content">
+                <textarea id="edict-content">Hear, hear-- I decree my first edict!</textarea>
+                <br /><br />
+                <a href="javascript:promulgate();">Promulgate!</a>
             </div>
         </div>
-        
-        <div id="promulgation-content">
-            <textarea id="edict-content">Hear, hear-- I decree my first edict!</textarea>
-            <br /><br />
-            <a href="javascript:promulgate();">Promulgate!</a>
-        </div>
     </div>
 
-    <div id="bg-fade">
-    </div>
+    <div id="bg-fade"></div>
 
     <div id="edicts"></div>
 
