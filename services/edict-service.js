@@ -17,8 +17,10 @@ promulgate = async (edict) => {
                 'RETURNING *'
     let db_rs = await db.query(query, [edict.user_id, edict.otp_id, edict.content.trim(), 
                                        edict.category_id, edict.medium_id, edict.ref])
-    // console.log("%%% db_rs", db_rs)
+    console.log("%%% promulgate db_rs", db_rs)
     rs.status = db_rs.status
+    rs.edict_id = db_rs.payload[0].id
+    rs.created_on = db_rs.payload[0].created_on
     return rs
 }
 

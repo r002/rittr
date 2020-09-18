@@ -31,11 +31,13 @@ promulgate = async _ => {
         }
     })
     let rs = await res.json()
-    // console.log("fetch returned: ", rs)
+    console.log(">> promulgatation returned: ", rs)
 
     if(1==rs.status) {
+        let dt = f_dt_detailed(rs.created_on)
         document.querySelector('#flash-header')
-        .innerHTML = `<strong>Edict promulgated! Good job!</strong>`
+        .innerHTML = `<strong>Edict #${rs.edict_id} promulgated! ${dt}</strong>`
+
         get_personal_edicts()  // Refresh personal edicts on RHS sidebar.
     } else {
         document.querySelector('#flash-header')
@@ -184,6 +186,19 @@ f_dt = datetime => {
     return `${weekday} - ${month} ${day}`
 }
 
+f_dt_detailed = datetime => {
+    let d = Date.parse(datetime)  // "2020-08-02T17:32:00.000Z" => 1596389520000
+    d = new Date(d)
+    const weekday = d.toLocaleString("default", { weekday: "short" })
+    const day = d.getDate()
+    const month = d.toLocaleString('default', { month: 'short' })
+    const year = d.getFullYear()
+    const hours = d.getHours()
+    const minutes = d.getMinutes()
+    const zone = Intl.DateTimeFormat().resolvedOptions().timeZone
+    return `${weekday} - ${month} ${day}, ${year} - ${hours}:${minutes} ${zone}`
+}
+
 category_emoji = category => {
     switch(category.toLowerCase()) {
         case "politics":
@@ -238,7 +253,7 @@ initialload_edictstream = async _ => {
                         ${edict.name} &nbsp; <a href="#">@${edict.sovereignty}</a>
                     </div>
                     <div class="edict-title-right">
-                        <span class="edict-datetime">
+                        <span class="edict-datetime" title="${f_dt_detailed(edict.created_on)}">
                             <a href="#">${f_dt(edict.created_on)}</a>
                         </span>
                         &nbsp;${category_emoji(edict.category)}${media_emoji(edict.medium)}
@@ -270,7 +285,7 @@ get_personal_edicts = async _ => {
                         ${edict.name} &nbsp; <a href="#">@${edict.sovereignty}</a>
                     </div>
                     <div class="edict-title-right">
-                        <span class="edict-datetime">
+                        <span class="edict-datetime" title="${f_dt_detailed(edict.created_on)}">
                             <a href="#">${f_dt(edict.created_on)}</a>
                         </span>
                         &nbsp;${category_emoji(edict.category)}${media_emoji(edict.medium)}
