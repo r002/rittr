@@ -65,9 +65,11 @@ module.exports = {
     broadcast_flash : (req, res) => {
         // let req_obj = JSON.parse(req.body)
         let flash_broadcast = req.body.flash_broadcast
+        let blast_targets = req.body.blast_targets
+        // console.log(">> blast_targets: ", blast_targets)
 
         m = Monitor.get_instance()
-        m.broadcast_flash(flash_broadcast)
+        m.broadcast_flash(flash_broadcast, blast_targets)
 
         let rs = { "status": 1 }
         res.json(rs)

@@ -11,6 +11,25 @@
     line-height: 28px;
 }
 
+button {
+    background: yellow;
+    padding: 10px;
+    color: black;
+    font-size: 20px;
+}
+
+button:hover {
+    background: pink;
+    cursor: pointer;
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
 body {
     /* position: absolute; */
     background-image: url("/img/planetscape.jpg");
@@ -222,4 +241,25 @@ ul.menu {
 .bold {
     color: black;
     font-weight: bold;
+}
+
+#flash-alert {
+    padding-left: 5px;
+    padding-right: 5px;
+    background: orange;
+    color: black;
+}
+
+#flash-date {
+    padding-left: 5px;
+    padding-right: 5px;
+    background: pink;
+    color: black;
+}
+
+#flash-message {
+    padding-left: 5px;
+    padding-right: 5px;
+    background: yellow;
+    color: black;
 }

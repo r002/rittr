@@ -131,13 +131,24 @@ module.exports = class Monitor {
         }
     }
 
-    broadcast_flash(flash_broadcast) {
-        for (const [client_id, client] of clients)
+    broadcast_flash(flash_broadcast, blast_targets)
+    {
+        for (const client_key of blast_targets)
         {
-            // console.log(`key: ${client_id}, value: ${JSON.stringify(client)}`)
+            client = clients.get(client_key)
             client.res.write(`event: flash\n` +
-                             `data: {"flash": ${flash_broadcast}}\n\n`)
+                             `data: {"flash": "${flash_broadcast}"}\n\n`)
         }
+
+        // DEPRECATED! (9/21/20)
+        // This block of code will blast the flash broadcast to all client endpoints!
+        //
+        // for (const [client_id, client] of clients)
+        // {
+        //     // console.log(`key: ${client_id}, value: ${JSON.stringify(client)}`)
+        //     client.res.write(`event: flash\n` +
+        //                      `data: {"flash": "${flash_broadcast}"}\n\n`)
+        // }
     }
 
     // Note that the timestamps on the clientMap broadcasted to the Admin GUIs will be one REFRESH_INTERVAL

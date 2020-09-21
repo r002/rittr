@@ -34,7 +34,11 @@ initialize_pipeline = mode => {
 
     source.addEventListener('flash', message => {
         console.log(`"flash event" received:`, message)
-        document.querySelector('#flash-header').innerHTML = event.data
+        let f = JSON.parse(event.data)
+        let s = `<span id='flash-alert'>FLASH ANNOUNCEMENT</span> ` +
+                `<span id='flash-date'>${f_dt_detailed(Date())}</span> ` +
+                `<span id='flash-message'>${f.flash}</span>`
+        document.querySelector('#flash-header').innerHTML = s
     })
 
     // Listen for ping from the Server.  If the server pings, send a pong back.

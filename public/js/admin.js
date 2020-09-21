@@ -21,6 +21,30 @@ add_log = (log_item) => {
     document.querySelector('#console').scrollTop = document.querySelector('#console').scrollHeight 
 }
 
+toggle_arr = source => {
+    // console.log(">>> toggle_arr", source.checked)
+    let clients = document.getElementsByName('client')
+    for (let cb=0; cb<clients.length; cb++)
+    {
+        clients[cb].checked = source.checked
+    }
+    calc_toggled()
+}
+
+calc_toggled = _ => {
+    // If all clients are checked, check the 'toggle_all_clients' cb too.
+    // Else, uncheck the 'toggle_all_clients' cb.
+    let checked_no = document.querySelectorAll('input[name="client"]:checked').length
+    // console.log(">>> clients.checked #?", checked_no)
+    if (0==checked_no) {
+        // console.log("$$ Disable button!")
+        document.querySelector('#btn_broadcast').disabled = true
+    } else {
+        // console.log("$$ Enable button!")
+        document.querySelector('#btn_broadcast').disabled = false
+    }
+}
+
 source.addEventListener('clientMap', message => {
 
     // console.log(`"clientMap event" received:`, message)
@@ -35,19 +59,25 @@ source.addEventListener('clientMap', message => {
     let i = 1
 
     s.push(`<div class="grid-container">
-            <div class="grid-item title">Conn #</div>
-            <div class="grid-item title">Client Id</div>
-            <div class="grid-item title">User Id</div>
-            <div class="grid-item title">Mode</div>
-            <div class="grid-item title">Last Heartbeat</div>
-            <div class="grid-item title">Status</div>`)
-    clientMap.forEach(client => {
-        s.push(`<div class="grid-item">${i++}</div>
-                <div class="grid-item">${client.id}</div>
-                <div class="grid-item">${client.user_id}</div>
-                <div class="grid-item">${client.mode}</div>
-                <div class="grid-item">${client.dt}</div>
-                <div class="grid-item ${client.status}">${client.status}</div>`)
+                <div class="grid-item title">
+                    <input type="checkbox" id="toggle_all_clients" onClick="toggle_arr(this)" checked>
+                </div>
+                <div class="grid-item title">Conn #</div>
+                <div class="grid-item title">Client Id</div>
+                <div class="grid-item title">User Id</div>
+                <div class="grid-item title">Mode</div>
+                <div class="grid-item title">Last Heartbeat</div>
+                <div class="grid-item title">Status</div>`)
+    clientMap.forEach(c => {
+        s.push(`<div class="grid-item">
+                    <input type="checkbox" name="client" id="${c.id}_${c.user_id}_${c.mode}" onClick="calc_toggled()" checked>
+                </div>
+                <div class="grid-item">${i++}</div>
+                <div class="grid-item">${c.id}</div>
+                <div class="grid-item">${c.user_id}</div>
+                <div class="grid-item">${c.mode}</div>
+                <div class="grid-item">${c.dt}</div>
+                <div class="grid-item ${c.status}">${c.status}</div>`)
     })
     s.push("</div>")
     document.querySelector('#clientMap').innerHTML = s.join("")
@@ -81,10 +111,23 @@ broadcast_flash = async _ => {
     let flash_broadcast = document.querySelector('#flash_broadcast').value
     // console.log("#law:", law)
 
+    // Identify all checked checkboxes
+    let clients = document.getElementsByName('client')
+    let blast_targets = []
+    for (let cb=0; cb<clients.length; cb++)
+    {
+        if (clients[cb].checked) {
+            console.log(">> CHECKED: ", clients[cb].id)
+            blast_targets.push(clients[cb].id)
+        }
+    }
+    console.log(">> blast_targets: ", blast_targets)
+
     let req = {
-        "user_id": user_id,
-        "otp": otp,
-        "flash_broadcast": flash_broadcast
+        user_id: user_id,
+        otp: otp,
+        flash_broadcast: flash_broadcast,
+        blast_targets: blast_targets
     }
 
     let res = await fetch(`/v1/admin/${user_id}/flash_broadcast?otp=${otp}`, {
