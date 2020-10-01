@@ -32,7 +32,8 @@ get_edicts = async (user_id) => {
                             'INNER JOIN edict_categories AS ec ON e.category_id=ec.id ' +
                             'INNER JOIN edict_mediums AS em ON e.medium_id=em.id ' +
                             'WHERE user_id = $1 ' +
-                            'ORDER BY created_on DESC', [user_id])
+                            'ORDER BY created_on DESC ' +
+                            'LIMIT 10', [user_id])
     // console.log("%%% get_edicts rs", rs)
     return rs.payload
 }

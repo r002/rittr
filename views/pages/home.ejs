@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Home | RITTR</title>
-  <link rel="stylesheet" href="/css/general.css">
-  <link rel="stylesheet" href="/css/home.css">
+    <title>Home | Robert's Personal Homepage</title>
+    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <script src="/js/util.js"></script>
+    <script src="/js/client.js"></script>
 </head>
 
 <body>
@@ -13,35 +15,17 @@
     </div>
 
     <nav id="main-menu">
-        <div class="title-bar"><a href="javascript:goHome();">Holy Edict Promulgation System</a></div>
+        <div class="title-bar"><a href="javascript:show_scene(scenes.edictstream_scene);">Robert's Personal Homepage</a></div>
         <ul class="menu">
             <div id="menu"></div>
         </ul>
     </nav>
 
-    <div class="overlay" id="promulgation_scene">
-        <div id="personal-edicts-box">
-        </div>
-
-        <div class="window" id="promulgation-box">
-            <div class="title-bar">
-                📢 Promulgate New Edict
-                <div class="title-bar-right">
-                    <a href="javascript:close_scene(scenes.promulgation_scene);">✖️</a>
-                </div>
-            </div>
-            
-            <div id="promulgation-content">
-                <textarea id="edict-content">Hear, hear-- I decree my first edict!</textarea>
-                <br /><br />
-                <a href="javascript:promulgate();">Promulgate!</a>
-            </div>
-        </div>
-    </div>
+    <% include ../scenes/promulgation_scene.ejs %>
 
     <div id="bg-fade"></div>
 
-    <div id="edicts"></div>
+    <% include ../scenes/edictstream_scene.ejs %>
 
     <div id="footer">
         <div id="version">
@@ -56,7 +40,5 @@
 
 </body>
 
-<script src="/js/util.js"></script>
-<script src="/js/client.js"></script>
 <script src="/js/home.js"></script>
 </html>
