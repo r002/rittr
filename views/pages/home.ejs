@@ -4,6 +4,10 @@
     <title>Home | Robert's Personal Homepage</title>
     <link rel="stylesheet" href="/css/general.css">
     <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/analyzer.css">
+    <script>
+        const user_id = <%= UID %>
+    </script>
     <script src="/js/util.js"></script>
     <script src="/js/client.js"></script>
 </head>
@@ -26,6 +30,7 @@
     <div id="bg-fade"></div>
 
     <% include ../scenes/edictstream_scene.ejs %>
+    <% include ../scenes/analyzer_scene.ejs %>
 
     <div id="footer">
         <div id="version">

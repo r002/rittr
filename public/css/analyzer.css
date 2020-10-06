@@ -1,0 +1,42 @@
+#analyzer_scene {
+    display: none;
+}
+
+.page {
+    background: #2a353b;
+    color: #9c9d9e;
+
+    /* transition: opacity 2s; */
+
+    position: fixed;
+    top: 0;
+    width: 600px;
+    height: 500px;
+
+    left: 50%;
+    margin-left: -300px;
+    margin-top: 200px;
+    
+    /* padding: 5px 0 0 0; */
+    text-align: center;
+    font-size: 15px;
+
+    opacity: 0.8;
+    box-shadow: 0px 0px 15px 0px rgba(255, 255, 255, 0.5);
+}
+
+/* textarea {
+    padding: 10px;
+    width: 100%;
+    height: 300px;
+    position: relative;
+    left: 0;
+    outline: none;
+    border: 1px solid #cdcdcd;
+    border-color: rgba(0, 0, 0, .15);
+    background: gainsboro;
+    font-size: 16px;
+    color: black;
+
+    box-sizing: border-box;
+} */

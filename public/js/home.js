@@ -174,20 +174,22 @@ let scenes = {
 }
 
 show_scene = scene => {
+    document.querySelector(`#${scene.title}`).setAttribute('style', 'display: block')
     switch(scene.title) {
         case "promulgation_scene":
-            document.querySelector(`#${scene.title}`).setAttribute('style', 'display: block')
             document.querySelector(`#bg-fade`).setAttribute('style', 'display: block')
             get_personal_edicts()
             break
         case "edictstream_scene":
             render_menu(links_top)
-            document.querySelector(`#${scene.title}`).setAttribute('style', 'display: block')
             initialload_edictstream()
             break
         case "analyzer_scene":
             close_scene(scenes.edictstream_scene)
             render_menu(links_analyzer)
+
+            // Modify the url... 10/6/20
+            history.pushState({}, "", "#analyzer")
             break
     }
 }

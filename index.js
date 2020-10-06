@@ -34,11 +34,8 @@ express()
   .get('/create', (req, res) => route(pool, req, res, home.createAccount))
 
   // Requires authentication:
-  .get('/', (req, res) => route_auth(pool, req, res, home.showDash))
-  .get('/home', (req, res) => route_auth(pool, req, res, home.showHome))
-  // .get('/admin/users', (req, res) => route_auth(pool, req, res, users.view))
-  .get('/times', (req, res) => route_auth(pool, req, res, home.showTimes))
-  .get('/admin', (req, res) => route_auth(pool, req, res, home.showAdmin))
+  .get('/home/:uid', (req, res) => route_auth(pool, req, res, home.showHome))
+  .get('/admin/:uid', (req, res) => route_auth(pool, req, res, home.showAdmin))
   
 
   // OPEN REST API POST:
@@ -79,8 +76,8 @@ route = (pool, req, res, fxn) => {
 
 route_auth = async (pool, req, res, fxn) => {
     console.log("route_auth called: ", fxn)
-    console.log("Check authentication cookie...", req.query.id, req.query.otp)
-    let auth_rs = await authService.check_auth(req.query.id, req.query.otp)
+    console.log("Check authentication cookie...", req.params.uid, req.query.otp)
+    let auth_rs = await authService.check_auth(req.params.uid, req.query.otp)
     console.log(auth_rs)
     if (1==auth_rs.status) {
         fxn(pool, req, res)

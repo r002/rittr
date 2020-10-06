@@ -27,7 +27,12 @@ module.exports = {
 
     showHome : async (pool, req, res) => {
         // res.render('pages/home', req)
-        res.render('pages/home', {"VERSION": VERSION})
+        // console.log(">>> req.params.uid", req.params.uid)
+        let v = {
+            VERSION: VERSION,
+            UID: req.params.uid
+        }
+        res.render('pages/home', v)
     },
 
     showDash : async (pool, req, res) => {
@@ -40,7 +45,11 @@ module.exports = {
     },
 
     showAdmin : async (pool, req, res) => {
-        res.render('pages/admin', {"VERSION": VERSION})
+        let v = {
+            VERSION: VERSION,
+            UID: req.params.uid
+        }
+        res.render('pages/admin', v)
     },
 
     showTimes : (pool, req, res) => {
