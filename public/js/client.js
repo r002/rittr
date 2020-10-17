@@ -10,8 +10,6 @@ SSE communication. Will also respond to server requests for heartbeats.
 const ROOT = window.location.origin
 const urlParams = new URLSearchParams(window.location.search)
 
-console.log(">>> HASH ", location.hash)
-
 const otp = urlParams.get('otp')
 const client_id = Math.floor((Math.random() * 100) + 1)
 var source = null

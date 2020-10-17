@@ -199,5 +199,13 @@ close_scene = scene => {
     document.querySelector(`#${scene.title}`).setAttribute('style', 'display: none')
 }
 
-// Auto initial load
-show_scene(scenes.edictstream_scene)
+// Decide what scene to load
+// console.log(">>> home.js - HASH ", location.hash)
+switch(location.hash) {
+    case "#analyzer":
+        show_scene(scenes.analyzer_scene)
+        break
+    default:
+        show_scene(scenes.edictstream_scene)
+}
+
