@@ -26,11 +26,12 @@ email_otp = async (user) => {
     let otp = generate_otp()
     if (await insert_otp_into_db(user, otp))
     {
-        let subject = "Rittr | Use this OTP to login ​🔐​👑​💍​"
-        let body = `Use this OTP to login ​🔑​🔐​❤️️​:<br />\n`
-                    + `<a href="${ROOT_URL}/?id=${user.id}&otp=${otp}">Click me to login!</a>\n`
+        let subject = "Rittr | Use this OTP to login ​🔐​👑​​"
+        let body = `Use this OTP to login ​🔑​🔐​​:<br />\n`
+                    + `<a href="${ROOT_URL}/home/${user.id}/?otp=${otp}">Click this link to login.</a>\n`
                     + `<br /><br />\n`
-                    + `${ROOT_URL}/?id=${user.id}&otp=${otp}\n`
+                    + `If the above link doesn't work, please navigate to this url:<br />\n`
+                    + `${ROOT_URL}/home/${user.id}/?otp=${otp}\n`
         rs = await emailerService.send_email(user, subject, body)
         return rs
     }
