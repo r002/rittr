@@ -1,3 +1,9 @@
+# Current Rittr GUI Client - Build 0.0.79 (11/16/20)
+
+![](https://user-images.githubusercontent.com/45280066/99300560-c7b94280-281a-11eb-825a-84465dace0d6.png)
+
+---
+
 # Rittr (Robert's Twitter Clone Pet Project)
 
 [Operation Rittr Kanban](https://github.com/r002/rittr/projects/2)
