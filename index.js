@@ -29,7 +29,7 @@ express()
   .set('view engine', 'ejs')
 
   // Open to everyone:
-  .get('/loginOld', (req, res) => route(pool, req, res, home.showLoginOld))
+  .get('/', (req, res) => route(pool, req, res, home.showLogin))
   .get('/login', (req, res) => route(pool, req, res, home.showLogin))
   .get('/create', (req, res) => route(pool, req, res, home.createAccount))
 

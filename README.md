@@ -1,6 +1,9 @@
-# node-js-getting-started
+# Rittr (Robert's Twitter Clone Pet Project)
 
 [Operation Rittr Kanban](https://github.com/r002/rittr/projects/2)
+
+November 15, 2020 - Sunday: This current build **only** works in Google Chrome and will not
+work in Microsoft Edge or IE because those browsers don't support **EventSource**.
 
 June 27, 2020 - Saturday: Test 'Continuous Delivery' with GitHub Deploys integration.
 
@@ -35,48 +38,3 @@ $ pg_dump -U rittr rittr_dev > snapshot.sql
 $ npm install node-fetch --save-dev
 
 ```
-
-REST API Reference: https://medium.com/hashmapinc/rest-good-practices-for-api-design-881439796dc9
-
-https://stackoverflow.com/questions/3297048/403-forbidden-vs-401-unauthorized-http-responses
-
-Stored procedures: https://www.postgresqltutorial.com/postgresql-create-procedure/
-
-
-A barebones Node.js app using [Express 4](http://expressjs.com/).
-
-This application supports the [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
-
-## Running Locally
-
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
-
-```sh
-$ git clone https://github.com/heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
-```
-
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-## Deploying to Heroku
-
-```
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-or
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using Node.js on Heroku, see these Dev Center articles:
-
-- [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
