@@ -1,6 +1,12 @@
-# Current Rittr GUI Client - Build 0.0.79 (11/16/20)
+# Current Rittr Client GUI - Build 0.0.79 (11/16/20)
 
 ![](https://user-images.githubusercontent.com/45280066/99300560-c7b94280-281a-11eb-825a-84465dace0d6.png)
+
+---
+
+# Current Rittr Admin GUI - Build 0.0.79 (11/16/20)
+
+![](https://user-images.githubusercontent.com/45280066/99301563-27fcb400-281c-11eb-880d-1bab4f0471c4.png)
 
 ---
 
