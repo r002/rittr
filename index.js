@@ -38,6 +38,7 @@ express()
 
   // Test image serving
   .get('/serve/:asset', (req, res) => route(dir, req, res, home.serve))
+  .get('/ctwc/:player', (req, res) => route(dir, req, res, home.ctwc))
 
   // Requires authentication:
   .get('/home/:uid', (req, res) => route_auth(pool, req, res, home.showHome))

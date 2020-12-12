@@ -9,6 +9,7 @@
 
 const VERSION = process.env.VERSION
 const fs = require('fs')
+const fetch = require('node-fetch')
 
 module.exports = {
 
@@ -37,7 +38,6 @@ module.exports = {
     },
 
     serve : async (dir, req, res) => {
-
         // console.log(">> req asset param:", req.params.asset)
         
         let file = `${dir}/img/${req.params.asset}`
@@ -56,6 +56,18 @@ module.exports = {
             file = "https://r002.github.io/ctwc/img/player/alex.png"
             res.redirect(file)
         })
+    },
+
+    ctwc : async (dir, req, res) => {
+        const url = `https://r002.github.io/ctwc/img/player/${req.params.player}.png`
+        const response = await fetch(url,
+                                    { method: 'HEAD' })
+        // console.log("CTWC RESP:", response.ok)
+        if(response.ok) {
+            res.redirect(url)
+        } else {
+            res.redirect("https://r002.github.io/ctwc/img/player/unavailable.png")
+        }
     },
 
     showDash : async (pool, req, res) => {
