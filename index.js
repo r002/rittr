@@ -19,8 +19,11 @@ const edictService = require('./services/edict-service')
 const healthService = require('./services/health-service')
 const c = require('./models/constants')
 
+const dir = path.join(__dirname, 'public')
+// console.log(">> DIR:", dir)
+
 express()
-  .use(express.static(path.join(__dirname, 'public')))
+  .use(express.static(dir))
   .use(express.json())
   // .use((req, res, next) => {
   //     res.header('Access-Control-Allow-Origin', '*');
@@ -32,6 +35,9 @@ express()
   .get('/', (req, res) => route(pool, req, res, home.showLogin))
   .get('/login', (req, res) => route(pool, req, res, home.showLogin))
   .get('/create', (req, res) => route(pool, req, res, home.createAccount))
+
+  // Test image serving
+  .get('/serve/:asset', (req, res) => route(dir, req, res, home.serve))
 
   // Requires authentication:
   .get('/home/:uid', (req, res) => route_auth(pool, req, res, home.showHome))

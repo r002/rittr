@@ -8,6 +8,7 @@
 // const edictService = require('../services/edict-service')
 
 const VERSION = process.env.VERSION
+const fs = require('fs')
 
 module.exports = {
 
@@ -33,6 +34,28 @@ module.exports = {
             UID: req.params.uid
         }
         res.render('pages/home', v)
+    },
+
+    serve : async (dir, req, res) => {
+
+        // console.log(">> req asset param:", req.params.asset)
+        
+        let file = `${dir}/img/${req.params.asset}`
+        // console.log(">> file:", file)
+        
+        let s = fs.createReadStream(file)
+
+        s.on('open', function () {
+            res.set('Content-Type', 'image/png')
+            s.pipe(res)
+        })
+
+        s.on('error', function () {
+            // res.set('Content-Type', 'text/plain')
+            // res.status(404).end('Not found')
+            file = "https://r002.github.io/ctwc/img/player/alex.png"
+            res.redirect(file)
+        })
     },
 
     showDash : async (pool, req, res) => {
